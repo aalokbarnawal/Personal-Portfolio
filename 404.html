@@ -1,780 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>404 — Page Not Found | Aalok Barnawal</title>
-
-  <meta
-    name="description"
-    content="The page you're looking for doesn't exist. Return to Aalok Barnawal's portfolio."
-  />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --black: #080808;
-      --dark: #101010;
-      --card: #141414;
-      --white: #f5f5f2;
-      --gray: #999;
-      --line: rgba(255, 255, 255, 0.1);
-
-      --orange: #ff5c35;
-      --yellow: #ffca3a;
-      --pink: #ff4f9a;
-      --purple: #8b5cf6;
-
-      --gradient: linear-gradient(
-        110deg,
-        #ff5c35 0%,
-        #ff4f9a 48%,
-        #8b5cf6 100%
-      );
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      background: var(--black);
-      color: var(--white);
-      font-family: "DM Sans", sans-serif;
-      line-height: 1.6;
-      overflow: hidden;
-    }
-
-    body::-webkit-scrollbar {
-      display: none;
-    }
-
-    /* Background glow */
-
-    body::before {
-      content: "";
-      position: fixed;
-      width: 520px;
-      height: 520px;
-      top: -220px;
-      right: -160px;
-      background: var(--pink);
-      opacity: 0.1;
-      filter: blur(140px);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      width: 480px;
-      height: 480px;
-      bottom: -220px;
-      left: -160px;
-      background: var(--orange);
-      opacity: 0.08;
-      filter: blur(140px);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1180px, 90%);
-      margin: auto;
-    }
-
-    /* Navigation */
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 10;
-
-      background: rgba(8, 8, 8, 0.72);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .nav-inner {
-      height: 78px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      letter-spacing: -0.05em;
-    }
-
-    .logo span {
-      color: var(--orange);
-    }
-
-    .nav-home {
-      padding: 11px 18px;
-
-      border-radius: 999px;
-
-      background: white;
-      color: black;
-
-      font-size: 0.85rem;
-      font-weight: 700;
-
-      transition: 0.25s ease;
-    }
-
-    .nav-home:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 35px rgba(255, 255, 255, 0.12);
-    }
-
-    /* 404 Hero */
-
-    .error-page {
-      min-height: 100vh;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      padding: 110px 0 60px;
-
-      position: relative;
-      isolation: isolate;
-    }
-
-    .error-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: center;
-      gap: 70px;
-    }
-
-    .error-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-
-      padding: 8px 13px;
-
-      border: 1px solid var(--line);
-      border-radius: 999px;
-
-      background: rgba(255, 255, 255, 0.03);
-
-      color: #bbb;
-
-      font-size: 0.78rem;
-
-      margin-bottom: 25px;
-    }
-
-    .orange-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--orange);
-
-      box-shadow: 0 0 12px var(--orange);
-    }
-
-    .error-code {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: clamp(7rem, 18vw, 14rem);
-      line-height: 0.75;
-
-      letter-spacing: -0.1em;
-
-      margin-left: -10px;
-      margin-bottom: 35px;
-
-      background: var(--gradient);
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      color: transparent;
-
-      user-select: none;
-    }
-
-    .error-content h1 {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: clamp(2.5rem, 5vw, 4.8rem);
-      line-height: 0.95;
-
-      letter-spacing: -0.065em;
-
-      margin-bottom: 25px;
-    }
-
-    .error-content h1 span {
-      color: #777;
-    }
-
-    .error-description {
-      max-width: 560px;
-
-      color: var(--gray);
-
-      font-size: 1.05rem;
-      line-height: 1.8;
-
-      margin-bottom: 32px;
-    }
-
-    .error-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-
-      padding: 14px 22px;
-
-      border-radius: 10px;
-
-      font-size: 0.9rem;
-      font-weight: 700;
-
-      transition: 0.25s ease;
-    }
-
-    .button-primary {
-      background: white;
-      color: black;
-    }
-
-    .button-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(255, 255, 255, 0.1);
-    }
-
-    .button-secondary {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.03);
-      color: white;
-    }
-
-    .button-secondary:hover {
-      background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-3px);
-    }
-
-    /* 404 Artwork */
-
-    .error-art {
-      min-height: 500px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-    }
-
-    .art-card {
-      width: 340px;
-      height: 410px;
-
-      border-radius: 28px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.12),
-          rgba(255, 255, 255, 0.025)
-        );
-
-      border: 1px solid var(--line);
-
-      transform: rotate(7deg);
-
-      position: relative;
-
-      overflow: hidden;
-
-      box-shadow:
-        0 40px 100px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-      animation: floatCard 6s ease-in-out infinite;
-    }
-
-    .art-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 300px;
-      height: 300px;
-
-      border-radius: 50%;
-
-      background: var(--gradient);
-
-      top: -90px;
-      left: -90px;
-
-      filter: blur(2px);
-
-      opacity: 0.95;
-    }
-
-    .art-card::after {
-      content: "404";
-
-      position: absolute;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 9rem;
-
-      font-weight: 700;
-
-      line-height: 1;
-
-      color: rgba(255, 255, 255, 0.07);
-
-      right: -25px;
-      bottom: 15px;
-
-      letter-spacing: -0.09em;
-    }
-
-    .art-label {
-      position: absolute;
-
-      bottom: 30px;
-      left: 30px;
-
-      z-index: 2;
-
-      font-size: 0.72rem;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.18em;
-
-      color: white;
-    }
-
-    .art-label strong {
-      color: var(--yellow);
-    }
-
-    /* Floating elements */
-
-    .floating-shape {
-      position: absolute;
-
-      width: 82px;
-      height: 82px;
-
-      border-radius: 18px;
-
-      background: var(--yellow);
-
-      top: 35px;
-      right: 25px;
-
-      transform: rotate(-15deg);
-
-      box-shadow:
-        0 20px 60px rgba(255, 202, 58, 0.2);
-
-      animation: floatShape 5s ease-in-out infinite;
-    }
-
-    .floating-circle {
-      position: absolute;
-
-      width: 58px;
-      height: 58px;
-
-      border-radius: 50%;
-
-      background: var(--orange);
-
-      bottom: 60px;
-      left: 15px;
-
-      box-shadow: 0 15px 50px rgba(255, 92, 53, 0.2);
-
-      animation: floatCircle 4s ease-in-out infinite;
-    }
-
-    .floating-square {
-      position: absolute;
-
-      width: 32px;
-      height: 32px;
-
-      border: 2px solid var(--purple);
-
-      right: 30px;
-      bottom: 80px;
-
-      transform: rotate(25deg);
-
-      opacity: 0.8;
-    }
-
-    /* Tiny decorative text */
-
-    .coordinates {
-      position: absolute;
-
-      right: 0;
-      bottom: -10px;
-
-      color: #444;
-
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 0.7rem;
-
-      letter-spacing: 0.12em;
-
-      text-transform: uppercase;
-
-      writing-mode: vertical-rl;
-    }
-
-    /* Animations */
-
-    @keyframes floatCard {
-      0%,
-      100% {
-        transform: rotate(7deg) translateY(0);
-      }
-
-      50% {
-        transform: rotate(5deg) translateY(-12px);
-      }
-    }
-
-    @keyframes floatShape {
-      0%,
-      100% {
-        transform: rotate(-15deg) translateY(0);
-      }
-
-      50% {
-        transform: rotate(-7deg) translateY(-15px);
-      }
-    }
-
-    @keyframes floatCircle {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(12px);
-      }
-    }
-
-    /* Footer */
-
-    .footer {
-      position: fixed;
-
-      bottom: 25px;
-      left: 0;
-
-      width: 100%;
-
-      color: #555;
-
-      font-size: 0.78rem;
-
-      z-index: 5;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer span:last-child {
-      color: #777;
-    }
-
-    /* Responsive */
-
-    @media (max-width: 850px) {
-      body {
-        overflow: auto;
-      }
-
-      .error-page {
-        padding: 130px 0 100px;
-      }
-
-      .error-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .error-art {
-        min-height: 400px;
-      }
-
-      .coordinates {
-        display: none;
-      }
-
-      .footer {
-        position: static;
-        padding: 25px 0;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav-inner {
-        height: 70px;
-      }
-
-      .error-page {
-        padding-top: 110px;
-      }
-
-      .error-code {
-        font-size: 7rem;
-        margin-bottom: 25px;
-      }
-
-      .error-content h1 {
-        font-size: 3rem;
-      }
-
-      .error-description {
-        font-size: 0.95rem;
-      }
-
-      .error-art {
-        min-height: 350px;
-      }
-
-      .art-card {
-        width: 260px;
-        height: 320px;
-      }
-
-      .art-card::after {
-        font-size: 7rem;
-      }
-
-      .floating-shape {
-        width: 65px;
-        height: 65px;
-        right: 15px;
-      }
-
-      .floating-circle {
-        width: 48px;
-        height: 48px;
-        left: 5px;
-      }
-
-      .error-buttons {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        gap: 8px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        scroll-behavior: auto !important;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Navigation -->
-  <nav>
-    <div class="container nav-inner">
-
-      <a href="/" class="logo">
-        Aalok<span>.</span>
-      </a>
-
-      <a href="/" class="nav-home">
-        Back Home
-      </a>
-
-    </div>
-  </nav>
-
-
-  <!-- 404 Page -->
-  <main class="error-page">
-
-    <div class="container error-grid">
-
-      <!-- Content -->
-      <div class="error-content">
-
-        <div class="error-label">
-          <span class="orange-dot"></span>
-          Error 404 — Page Not Found
-        </div>
-
-        <div class="error-code">
-          404
-        </div>
-
-        <h1>
-          Lost in the<br>
-          <span>creative space.</span>
-        </h1>
-
-        <p class="error-description">
-          Looks like the page you're searching for doesn't exist,
-          has been moved, or took a little creative detour.
-          Let's get you back to something useful.
-        </p>
-
-        <div class="error-buttons">
-
-          <a href="/" class="button button-primary">
-            ← Back to Home
-          </a>
-
-          <a href="/#work" class="button button-secondary">
-            Explore My Work →
-          </a>
-
-        </div>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>404 — Page Not Found | Aalok Barnawal</title>
+
+    <meta
+      name="description"
+      content="The page you're looking for doesn't exist. Return to Aalok Barnawal's portfolio."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/404.css" />
+
+    <!-- Script -->
+    <script src="js/404.js" defer></script>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="container nav-inner">
+        <a href="/" class="logo"> Aalok<span>.</span> </a>
+
+        <a href="/" class="nav-home"> Back Home </a>
       </div>
+    </nav>
 
-
-      <!-- Artwork -->
-      <div class="error-art">
-
-        <div class="art-card">
-
-          <div class="art-label">
-            Aalok <strong>×</strong> 404
+    <!-- 404 Page -->
+    <main class="error-page">
+      <div class="container error-grid">
+        <!-- Content -->
+        <div class="error-content">
+          <div class="error-label">
+            <span class="orange-dot"></span>
+            Error 404 — Page Not Found
           </div>
 
+          <div class="error-code">404</div>
+
+          <h1>
+            Lost in the<br />
+            <span>creative space.</span>
+          </h1>
+
+          <p class="error-description">
+            Looks like the page you're searching for doesn't exist, has been
+            moved, or took a little creative detour. Let's get you back to
+            something useful.
+          </p>
+
+          <div class="error-buttons">
+            <a href="/" class="button button-primary"> ← Back to Home </a>
+
+            <a href="/#work" class="button button-secondary">
+              Explore My Work →
+            </a>
+          </div>
         </div>
 
-        <div class="floating-shape"></div>
+        <!-- Artwork -->
+        <div class="error-art">
+          <div class="art-card">
+            <div class="art-label">Aalok <strong>×</strong> 404</div>
+          </div>
 
-        <div class="floating-circle"></div>
+          <div class="floating-shape"></div>
 
-        <div class="floating-square"></div>
+          <div class="floating-circle"></div>
 
-        <div class="coordinates">
-          PAGE_NOT_FOUND / 404
+          <div class="floating-square"></div>
+
+          <div class="coordinates">PAGE_NOT_FOUND / 404</div>
         </div>
-
       </div>
+    </main>
 
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span> © 2026 Aalok Barnawal </span>
 
-  </main>
-
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-
-      <span>
-        © 2026 Aalok Barnawal
-      </span>
-
-      <span>
-        Design × Code × Creativity
-      </span>
-
-    </div>
-  </footer>
-
-
-  <script>
-    // Small mouse interaction for the artwork
-    const art = document.querySelector(".error-art");
-    const card = document.querySelector(".art-card");
-
-    if (art && card && window.matchMedia("(pointer: fine)").matches) {
-      art.addEventListener("mousemove", (event) => {
-        const rect = art.getBoundingClientRect();
-
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-        card.style.transform = `
-          rotate(7deg)
-          perspective(900px)
-          rotateY(${x * 8}deg)
-          rotateX(${y * -8}deg)
-          translateY(-5px)
-        `;
-      });
-
-      art.addEventListener("mouseleave", () => {
-        card.style.transform = "";
-      });
-    }
-  </script>
-
-</body>
+        <span> Design × Code × Creativity </span>
+      </div>
+    </footer>
+  </body>
 </html>

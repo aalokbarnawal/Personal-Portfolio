@@ -1,4011 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Aalok Barnawal — Graphic Designer & Front-End Developer</title>
-
-  <meta
-    name="description"
-    content="Aalok Barnawal — Graphic Designer and Front-End Developer creating bold visuals and modern digital experiences."
-  />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
-<link rel="shortcut icon" href="favicon/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="MyWebSite" />
-<link rel="manifest" href="favicon/site.webmanifest" />
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-
-
-    :root {
-      --black: #080808;
-      --dark: #101010;
-      --card: #141414;
-
-      --white: #f5f5f2;
-      --gray: #999;
-      --muted: #666;
-
-      --line: rgba(255,255,255,.10);
-
-      --orange: #ff5c35;
-      --yellow: #ffca3a;
-      --pink: #ff4f9a;
-      --purple: #8b5cf6;
-      --cyan: #22d3ee;
-      --green: #35e18b;
-
-      --gradient:
-        linear-gradient(
-          110deg,
-          #ff5c35 0%,
-          #ff4f9a 48%,
-          #8b5cf6 100%
-        );
-
-      --ease: cubic-bezier(.22,1,.36,1);
-    }
-
-
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: "DM Sans", sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::-webkit-scrollbar {
-      width: 0;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .container {
-      width: min(1180px, 90%);
-      margin: auto;
-    }
-
-
-
-    body::before {
-      content: "";
-      position: fixed;
-
-      width: 600px;
-      height: 600px;
-
-      top: -250px;
-      right: -180px;
-
-      background: var(--pink);
-
-      opacity: .10;
-
-      filter: blur(150px);
-
-      border-radius: 50%;
-
-      pointer-events: none;
-
-      z-index: -3;
-
-      animation:
-        backgroundFloat 12s ease-in-out infinite alternate;
-    }
-
-    body::after {
-      content: "";
-
-      position: fixed;
-
-      width: 550px;
-      height: 550px;
-
-      bottom: -250px;
-      left: -180px;
-
-      background: var(--orange);
-
-      opacity: .08;
-
-      filter: blur(150px);
-
-      border-radius: 50%;
-
-      pointer-events: none;
-
-      z-index: -3;
-
-      animation:
-        backgroundFloat 15s ease-in-out infinite alternate-reverse;
-    }
-
-    .noise {
-      position: fixed;
-      inset: 0;
-
-      pointer-events: none;
-
-      z-index: 9999;
-
-      opacity: .035;
-
-      background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-    }
-
-
-
-    .cursor-glow {
-      position: fixed;
-
-      width: 320px;
-      height: 320px;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(255,79,154,.10),
-          transparent 65%
-        );
-
-      pointer-events: none;
-
-      transform: translate(-50%, -50%);
-
-      z-index: -1;
-
-      opacity: 0;
-
-      transition: opacity .4s ease;
-    }
-
-    body:hover .cursor-glow {
-      opacity: 1;
-    }
-
-
-
-    .loader {
-      position: fixed;
-
-      inset: 0;
-
-      background: var(--black);
-
-      z-index: 10000;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      transition:
-        opacity .8s var(--ease),
-        visibility .8s;
-    }
-
-    .loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    .loader-inner {
-      text-align: center;
-    }
-
-    .loader-logo {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 2rem;
-
-      font-weight: 700;
-
-      letter-spacing: -.06em;
-
-      margin-bottom: 25px;
-
-      animation: loaderPulse 1.2s ease-in-out infinite;
-    }
-
-    .loader-logo span {
-      color: var(--orange);
-    }
-
-    .loader-bar {
-      width: 180px;
-      height: 2px;
-
-      background: rgba(255,255,255,.1);
-
-      overflow: hidden;
-
-      border-radius: 99px;
-    }
-
-    .loader-bar::after {
-      content: "";
-
-      display: block;
-
-      width: 50%;
-
-      height: 100%;
-
-      background: var(--gradient);
-
-      animation: loaderBar 1.2s ease-in-out infinite;
-    }
-
-
-    /* =========================================================
-       NAVIGATION
-    ========================================================= */
-
-    nav {
-      position: fixed;
-
-      top: 0;
-      left: 0;
-
-      width: 100%;
-
-      z-index: 1000;
-
-      background: rgba(8,8,8,.68);
-
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-
-      border-bottom:
-        1px solid rgba(255,255,255,.06);
-
-      transition:
-        background .3s ease,
-        border-color .3s ease;
-    }
-
-    nav.scrolled {
-      background: rgba(8,8,8,.88);
-
-      border-bottom-color:
-        rgba(255,255,255,.12);
-    }
-
-    .nav-inner {
-      height: 78px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size: 1.35rem;
-
-      font-weight: 700;
-
-      letter-spacing: -.05em;
-
-      transition: transform .3s var(--ease);
-    }
-
-    .logo:hover {
-      transform: translateY(-2px);
-    }
-
-    .logo span {
-      color: var(--orange);
-
-      display: inline-block;
-
-      animation: logoDot 2s ease-in-out infinite;
-    }
-
-    .nav-links {
-      display: flex;
-
-      gap: 34px;
-
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: #aaa;
-
-      font-size: .9rem;
-
-      position: relative;
-
-      transition:
-        color .25s ease;
-    }
-
-    .nav-links a::after {
-      content: "";
-
-      position: absolute;
-
-      left: 0;
-      bottom: -7px;
-
-      width: 100%;
-      height: 1px;
-
-      background: var(--gradient);
-
-      transform: scaleX(0);
-
-      transform-origin: right;
-
-      transition:
-        transform .3s var(--ease);
-    }
-
-    .nav-links a:hover {
-      color: white;
-    }
-
-    .nav-links a:hover::after {
-      transform: scaleX(1);
-
-      transform-origin: left;
-    }
-
-    .nav-contact {
-      padding: 11px 18px;
-
-      border-radius: 999px;
-
-      background: white;
-      color: black;
-
-      font-size: .85rem;
-
-      font-weight: 700;
-
-      transition:
-        transform .3s var(--ease),
-        box-shadow .3s ease;
-    }
-
-    .nav-contact:hover {
-      transform: translateY(-3px);
-
-      box-shadow:
-        0 12px 40px rgba(255,255,255,.13);
-    }
-
-
-    /* =========================================================
-       HERO
-    ========================================================= */
-
-    .hero {
-      min-height: 100vh;
-
-      display: flex;
-
-      align-items: center;
-
-      padding-top: 100px;
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-
-      position: absolute;
-
-      width: 1px;
-      height: 100%;
-
-      left: 8%;
-
-      top: 0;
-
-      background:
-        linear-gradient(
-          transparent,
-          rgba(255,255,255,.06),
-          transparent
-        );
-
-      opacity: .5;
-    }
-
-    .hero-grid {
-      display: grid;
-
-      grid-template-columns: 1.2fr .8fr;
-
-      align-items: center;
-
-      gap: 60px;
-    }
-
-    .available {
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 9px;
-
-      padding: 8px 13px;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 999px;
-
-      background:
-        rgba(255,255,255,.03);
-
-      color: #bbb;
-
-      font-size: .78rem;
-
-      margin-bottom: 26px;
-
-      animation:
-        fadeUp .8s .2s both;
-    }
-
-    .green-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      box-shadow:
-        0 0 12px var(--green);
-
-      animation:
-        statusPulse 1.8s ease-in-out infinite;
-    }
-
-    .hero h1 {
-      font-family: "Space Grotesk", sans-serif;
-
-      font-size:
-        clamp(3.6rem, 7.8vw, 7.4rem);
-
-      line-height: .9;
-
-      letter-spacing: -.075em;
-
-      margin-bottom: 30px;
-    }
-
-    .hero h1 .line {
-      display: block;
-
-      opacity: 0;
-
-      transform:
-        translateY(50px);
-
-      animation:
-        heroLine .9s var(--ease) forwards;
-    }
-
-    .hero h1 .line:nth-child(1) {
-      animation-delay: .25s;
-    }
-
-    .hero h1 .line:nth-child(2) {
-      animation-delay: .35s;
-    }
-
-    .hero h1 .line:nth-child(3) {
-      animation-delay: .45s;
-    }
-
-    .gradient-text {
-      background: var(--gradient);
-
-      background-size: 200% auto;
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      color: transparent;
-
-      animation:
-        gradientMove 5s ease-in-out infinite alternate;
-    }
-
-    .hero-description {
-      max-width: 650px;
-
-      color: var(--gray);
-
-      font-size: 1.08rem;
-
-      line-height: 1.8;
-
-      margin-bottom: 35px;
-
-      opacity: 0;
-
-      animation:
-        fadeUp .9s .65s var(--ease) forwards;
-    }
-
-    .hero-description strong {
-      color: white;
-    }
-
-    .hero-buttons {
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 12px;
-
-      opacity: 0;
-
-      animation:
-        fadeUp .9s .8s var(--ease) forwards;
-    }
-
-    .button {
-      display: inline-flex;
-
-      align-items: center;
-      justify-content: center;
-
-      gap: 9px;
-
-      padding: 14px 22px;
-
-      border-radius: 10px;
-
-      font-size: .9rem;
-
-      font-weight: 700;
-
-      transition:
-        transform .3s var(--ease),
-        background .3s ease,
-        box-shadow .3s ease;
-    }
-
-    .button-primary {
-      background: white;
-      color: black;
-
-      box-shadow:
-        0 10px 30px rgba(0,0,0,.15);
-    }
-
-    .button-primary:hover {
-      transform:
-        translateY(-4px)
-        scale(1.02);
-
-      box-shadow:
-        0 18px 45px rgba(255,255,255,.12);
-    }
-
-    .button-secondary {
-      border:
-        1px solid var(--line);
-
-      background:
-        rgba(255,255,255,.03);
-
-      color: white;
-    }
-
-    .button-secondary:hover {
-      background:
-        rgba(255,255,255,.08);
-
-      transform:
-        translateY(-4px);
-    }
-
-
-    /* =========================================================
-       HERO ART
-    ========================================================= */
-
-    .hero-art {
-      min-height: 520px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-
-      perspective: 1200px;
-
-      opacity: 0;
-
-      animation:
-        artReveal 1.2s .5s var(--ease) forwards;
-    }
-
-    .art-card {
-      width: 330px;
-      height: 390px;
-
-      border-radius: 28px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.12),
-          rgba(255,255,255,.025)
-        );
-
-      border:
-        1px solid var(--line);
-
-      transform:
-        rotate(7deg);
-
-      position: relative;
-
-      overflow: hidden;
-
-      box-shadow:
-        0 40px 100px rgba(0,0,0,.4);
-
-      transition:
-        transform .2s ease;
-
-      will-change: transform;
-    }
-
-    .art-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 300px;
-      height: 300px;
-
-      border-radius: 50%;
-
-      background:
-        var(--gradient);
-
-      background-size: 180% 180%;
-
-      top: -90px;
-      left: -80px;
-
-      filter: blur(2px);
-
-      animation:
-        gradientMove 6s ease-in-out infinite alternate;
-    }
-
-    .art-card::after {
-      content: "A";
-
-      position: absolute;
-
-      font-family:
-        "Space Grotesk";
-
-      font-size: 18rem;
-
-      font-weight: 700;
-
-      line-height: 1;
-
-      color:
-        rgba(255,255,255,.08);
-
-      right: -20px;
-      bottom: -50px;
-
-      transition:
-        transform .6s var(--ease);
-    }
-
-    .art-card:hover::after {
-      transform:
-        translate(-10px,-15px)
-        rotate(-5deg);
-    }
-
-    .art-label {
-      position: absolute;
-
-      bottom: 28px;
-      left: 28px;
-
-      z-index: 2;
-
-      font-size: .75rem;
-
-      text-transform: uppercase;
-
-      letter-spacing: .18em;
-
-      color: white;
-    }
-
-    .floating-shape {
-      position: absolute;
-
-      width: 80px;
-      height: 80px;
-
-      border-radius: 18px;
-
-      background:
-        var(--yellow);
-
-      top: 30px;
-      right: 30px;
-
-      transform: rotate(-15deg);
-
-      box-shadow:
-        0 20px 60px rgba(255,202,58,.2);
-
-      animation:
-        floatingShape 5s ease-in-out infinite;
-    }
-
-    .floating-shape::before {
-      content: "";
-
-      position: absolute;
-
-      inset: 12px;
-
-      border:
-        2px solid rgba(0,0,0,.15);
-
-      border-radius: 10px;
-    }
-
-    .floating-circle {
-      position: absolute;
-
-      width: 55px;
-      height: 55px;
-
-      border-radius: 50%;
-
-      background:
-        var(--orange);
-
-      bottom: 55px;
-      left: 20px;
-
-      box-shadow:
-        0 15px 50px rgba(255,92,53,.2);
-
-      animation:
-        floatingCircle 4s ease-in-out infinite;
-    }
-
-    .floating-circle::after {
-      content: "";
-
-      position: absolute;
-
-      inset: -8px;
-
-      border:
-        1px solid rgba(255,92,53,.3);
-
-      border-radius: 50%;
-
-      animation:
-        circleRing 2.5s linear infinite;
-    }
-
-    .floating-square {
-      position: absolute;
-
-      width: 30px;
-      height: 30px;
-
-      border:
-        2px solid var(--purple);
-
-      right: 25px;
-      bottom: 75px;
-
-      transform: rotate(20deg);
-
-      animation:
-        squareSpin 7s linear infinite;
-    }
-
-
-    /* =========================================================
-       SECTIONS
-    ========================================================= */
-
-    section {
-      padding: 130px 0;
-
-      position: relative;
-    }
-
-    .section-number {
-      color: var(--orange);
-
-      font-size: .75rem;
-
-      font-weight: 700;
-
-      letter-spacing: .16em;
-
-      text-transform: uppercase;
-
-      margin-bottom: 13px;
-    }
-
-    .section-title {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size:
-        clamp(2.5rem,5vw,4.4rem);
-
-      line-height: 1;
-
-      letter-spacing: -.06em;
-
-      margin-bottom: 55px;
-    }
-
-
-    /* =========================================================
-       REVEAL
-    ========================================================= */
-
-    .reveal {
-      opacity: 0;
-
-      transform:
-        translateY(45px);
-
-      transition:
-        opacity .9s var(--ease),
-        transform .9s var(--ease);
-    }
-
-    .reveal.visible {
-      opacity: 1;
-
-      transform:
-        translateY(0);
-    }
-
-
-    /* =========================================================
-       ABOUT
-    ========================================================= */
-
-    .about-grid {
-      display: grid;
-
-      grid-template-columns: 1fr 1fr;
-
-      gap: 80px;
-    }
-
-    .about-copy p {
-      color: var(--gray);
-
-      font-size: 1.05rem;
-
-      line-height: 1.9;
-
-      margin-bottom: 20px;
-    }
-
-    .about-copy strong {
-      color: white;
-    }
-
-    .about-highlight {
-      padding: 35px;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 22px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.055),
-          rgba(255,255,255,.015)
-        );
-
-      position: relative;
-
-      overflow: hidden;
-
-      transition:
-        transform .4s var(--ease),
-        border-color .4s ease;
-    }
-
-    .about-highlight::before {
-      content: "";
-
-      position: absolute;
-
-      width: 200px;
-      height: 200px;
-
-      top: -120px;
-      right: -100px;
-
-      border-radius: 50%;
-
-      background:
-        var(--purple);
-
-      filter: blur(80px);
-
-      opacity: .15;
-    }
-
-    .about-highlight:hover {
-      transform:
-        translateY(-6px);
-
-      border-color:
-        rgba(255,255,255,.2);
-    }
-
-    .about-highlight h3 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size: 1.5rem;
-
-      margin-bottom: 25px;
-    }
-
-    .info-row {
-      display: flex;
-
-      justify-content: space-between;
-
-      gap: 20px;
-
-      padding: 17px 0;
-
-      border-bottom:
-        1px solid var(--line);
-
-      font-size: .9rem;
-    }
-
-    .info-row:last-child {
-      border-bottom: none;
-    }
-
-    .info-row span:first-child {
-      color: #777;
-    }
-
-    .info-row span:last-child {
-      text-align: right;
-
-      font-weight: 600;
-    }
-
-
-    /* =========================================================
-       SERVICES
-    ========================================================= */
-
-    .services {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
-      gap: 18px;
-    }
-
-    .service {
-      min-height: 300px;
-
-      padding: 30px;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 20px;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.05),
-          rgba(255,255,255,.015)
-        );
-
-      position: relative;
-
-      overflow: hidden;
-
-      transition:
-        transform .45s var(--ease),
-        border-color .3s ease;
-    }
-
-    .service::before {
-      content: "";
-
-      position: absolute;
-
-      width: 180px;
-      height: 180px;
-
-      border-radius: 50%;
-
-      top: -100px;
-      right: -80px;
-
-      background:
-        var(--orange);
-
-      filter: blur(80px);
-
-      opacity: 0;
-
-      transition:
-        opacity .5s ease;
-    }
-
-    .service:nth-child(2)::before {
-      background: var(--purple);
-    }
-
-    .service:nth-child(3)::before {
-      background: var(--cyan);
-    }
-
-    .service:hover {
-      transform:
-        translateY(-10px);
-
-      border-color:
-        rgba(255,255,255,.22);
-    }
-
-    .service:hover::before {
-      opacity: .18;
-    }
-
-    .service-number {
-      color: #555;
-
-      font-size: .8rem;
-
-      margin-bottom: 70px;
-    }
-
-    .service-icon {
-      width: 52px;
-      height: 52px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 14px;
-
-      background:
-        rgba(255,255,255,.07);
-
-      margin-bottom: 20px;
-
-      font-size: 1.35rem;
-
-      transition:
-        transform .4s var(--ease),
-        background .3s ease;
-    }
-
-    .service:hover .service-icon {
-      transform:
-        rotate(-8deg)
-        scale(1.08);
-
-      background:
-        rgba(255,255,255,.12);
-    }
-
-    .service h3 {
-      font-family:
-        "Space Grotesk",
-        sans-serif;
-
-      font-size: 1.45rem;
-
-      margin-bottom: 10px;
-    }
-
-    .service p {
-      color: var(--gray);
-
-      font-size: .9rem;
-    }
-
-
-    /* =========================================================
-       SKILLS
-    ========================================================= */
-
-    .skills-wrapper {
-      display: grid;
-
-      grid-template-columns: .8fr 1.2fr;
-
-      gap: 70px;
-
-      align-items: start;
-    }
-
-    .skills-intro p {
-      color: var(--gray);
-
-      line-height: 1.8;
-    }
-
-    .skills {
-      display: flex;
-
-      flex-wrap: wrap;
-
-      gap: 10px;
-    }
-
-    .skill {
-      padding: 13px 17px;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 9px;
-
-      background:
-        rgba(255,255,255,.035);
-
-      color: #ddd;
-
-      font-size: .88rem;
-
-      transition:
-        transform .3s var(--ease),
-        background .3s ease,
-        color .3s ease,
-        border-color .3s ease;
-    }
-
-    .skill:hover {
-      background: white;
-
-      color: black;
-
-      border-color: white;
-
-      transform:
-        translateY(-5px)
-        rotate(-1deg);
-    }
-
-
-    /* =========================================================
-       WORK
-    ========================================================= */
-
-    .work-grid {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2,1fr);
-
-      gap: 22px;
-    }
-
-    .work-card {
-      min-height: 430px;
-
-      border-radius: 22px;
-
-      border:
-        1px solid var(--line);
-
-      overflow: hidden;
-
-      background: var(--card);
-
-      position: relative;
-
-      transition:
-        transform .45s var(--ease),
-        border-color .3s ease;
-
-      transform-style: preserve-3d;
-    }
-
-    .work-card:hover {
-      transform:
-        translateY(-8px);
-
-      border-color:
-        rgba(255,255,255,.25);
-    }
-
-    .work-image {
-      height: 270px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .work-image::before {
-      content: "";
-
-      position: absolute;
-
-      inset: -50%;
-
-      background:
-        linear-gradient(
-          120deg,
-          transparent 30%,
-          rgba(255,255,255,.15),
-          transparent 70%
-        );
-
-      transform:
-        translateX(-100%)
-        rotate(15deg);
-
-      transition:
-        transform .8s var(--ease);
-    }
-
-    .work-card:hover
-    .work-image::before {
-      transform:
-        translateX(100%)
-        rotate(15deg);
-    }
-
-    .work-image.one {
-      background:
-        radial-gradient(
-          circle at 25% 25%,
-          #ffca3a,
-          transparent 25%
-        ),
-        linear-gradient(
-          135deg,
-          #ff5c35,
-          #ff4f9a
-        );
-    }
-
-    .work-image.two {
-      background:
-        radial-gradient(
-          circle at 70% 30%,
-          #8b5cf6,
-          transparent 30%
-        ),
-        linear-gradient(
-          135deg,
-          #111,
-          #242424
-        );
-    }
-
-    .work-image.three {
-      background:
-        radial-gradient(
-          circle at 40% 50%,
-          #22d3ee,
-          transparent 25%
-        ),
-        linear-gradient(
-          135deg,
-          #111827,
-          #111
-        );
-    }
-
-    .work-image.four {
-      background:
-        radial-gradient(
-          circle at 65% 35%,
-          #ff5c35,
-          transparent 30%
-        ),
-        linear-gradient(
-          135deg,
-          #181818,
-          #090909
-        );
-    }
-
-    .fake-poster {
-      width: 180px;
-      height: 210px;
-
-      background:
-        rgba(0,0,0,.82);
-
-      border:
-        1px solid rgba(255,255,255,.15);
-
-      transform:
-        rotate(-6deg);
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      font-family:
-        "Space Grotesk";
-
-      font-size: 3rem;
-
-      font-weight: 700;
-
-      box-shadow:
-        0 25px 60px rgba(0,0,0,.35);
-
-      transition:
-        transform .5s var(--ease);
-    }
-
-    .work-card:hover
-    .fake-poster {
-      transform:
-        rotate(0deg)
-        scale(1.06);
-    }
-
-    .work-content {
-      padding: 25px 27px;
-    }
-
-    .work-category {
-      color: #777;
-
-      text-transform: uppercase;
-
-      letter-spacing: .13em;
-
-      font-size: .7rem;
-
-      margin-bottom: 7px;
-    }
-
-    .work-content h3 {
-      font-family:
-        "Space Grotesk";
-
-      font-size: 1.45rem;
-
-      margin-bottom: 7px;
-    }
-
-    .work-content p {
-      color: var(--gray);
-
-      font-size: .88rem;
-    }
-
-
-    /* =========================================================
-       PROCESS
-    ========================================================= */
-
-    .process {
-      display: grid;
-
-      grid-template-columns:
-        repeat(4,1fr);
-
-      gap: 15px;
-    }
-
-    .process-item {
-      padding: 27px;
-
-      border-top:
-        1px solid var(--line);
-
-      transition:
-        transform .35s var(--ease);
-    }
-
-    .process-item:hover {
-      transform:
-        translateY(-7px);
-    }
-
-    .process-item span {
-      color: var(--orange);
-
-      font-size: .75rem;
-
-      font-weight: 700;
-    }
-
-    .process-item h3 {
-      font-family:
-        "Space Grotesk";
-
-      margin: 22px 0 10px;
-
-      font-size: 1.3rem;
-    }
-
-    .process-item p {
-      color: var(--gray);
-
-      font-size: .87rem;
-    }
-
-
-    /* =========================================================
-       CONTACT
-    ========================================================= */
-
-    .contact-box {
-      padding: 85px 50px;
-
-      text-align: center;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 28px;
-
-      background:
-        radial-gradient(
-          circle at 50% 0%,
-          rgba(255,79,154,.15),
-          transparent 45%
-        ),
-        var(--card);
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .contact-box::before {
-      content: "";
-
-      position: absolute;
-
-      width: 300px;
-      height: 300px;
-
-      border-radius: 50%;
-
-      left: 50%;
-      top: -250px;
-
-      transform:
-        translateX(-50%);
-
-      background:
-        var(--pink);
-
-      filter: blur(100px);
-
-      opacity: .2;
-
-      animation:
-        contactGlow 5s ease-in-out infinite alternate;
-    }
-
-    .contact-box > * {
-      position: relative;
-
-      z-index: 1;
-    }
-
-    .contact-box h2 {
-      font-family:
-        "Space Grotesk";
-
-      font-size:
-        clamp(3rem,7vw,6rem);
-
-      line-height: .92;
-
-      letter-spacing: -.07em;
-
-      margin-bottom: 25px;
-    }
-
-    .contact-box p {
-      max-width: 550px;
-
-      margin: auto;
-
-      color: var(--gray);
-
-      margin-bottom: 32px;
-    }
-
-
-    /* =========================================================
-       FOOTER
-    ========================================================= */
-
-    footer {
-      border-top:
-        1px solid var(--line);
-
-      padding: 30px 0;
-
-      color: #666;
-
-      font-size: .82rem;
-    }
-
-    .footer-inner {
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-    }
-
-    .socials {
-      display: flex;
-
-      gap: 20px;
-    }
-
-    .socials a {
-      transition:
-        color .2s ease,
-        transform .2s ease;
-
-      display: inline-block;
-    }
-
-    .socials a:hover {
-      color: white;
-
-      transform:
-        translateY(-2px);
-    }
-
-
-    /* =========================================================
-       KEYFRAMES
-    ========================================================= */
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform:
-          translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform:
-          translateY(0);
-      }
-    }
-
-    @keyframes heroLine {
-      from {
-        opacity: 0;
-        transform:
-          translateY(50px);
-        filter: blur(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform:
-          translateY(0);
-        filter: blur(0);
-      }
-    }
-
-    @keyframes artReveal {
-      from {
-        opacity: 0;
-
-        transform:
-          translateY(50px)
-          scale(.9)
-          rotate(-3deg);
-      }
-
-      to {
-        opacity: 1;
-
-        transform:
-          translateY(0)
-          scale(1)
-          rotate(0);
-      }
-    }
-
-    @keyframes gradientMove {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      100% {
-        background-position: 100% 50%;
-      }
-    }
-
-    @keyframes backgroundFloat {
-      0% {
-        transform:
-          translate(0,0)
-          scale(1);
-      }
-
-      100% {
-        transform:
-          translate(50px,30px)
-          scale(1.15);
-      }
-    }
-
-    @keyframes floatingShape {
-      0%,
-      100% {
-        transform:
-          rotate(-15deg)
-          translateY(0);
-      }
-
-      50% {
-        transform:
-          rotate(-5deg)
-          translateY(-18px);
-      }
-    }
-
-    @keyframes floatingCircle {
-      0%,
-      100% {
-        transform:
-          translateY(0);
-      }
-
-      50% {
-        transform:
-          translateY(15px);
-      }
-    }
-
-    @keyframes circleRing {
-      0% {
-        transform:
-          scale(.8);
-
-        opacity: .8;
-      }
-
-      100% {
-        transform:
-          scale(1.5);
-
-        opacity: 0;
-      }
-    }
-
-    @keyframes squareSpin {
-      from {
-        transform:
-          rotate(0deg);
-      }
-
-      to {
-        transform:
-          rotate(360deg);
-      }
-    }
-
-    @keyframes statusPulse {
-      0%,
-      100% {
-        transform:
-          scale(1);
-
-        box-shadow:
-          0 0 8px var(--green);
-      }
-
-      50% {
-        transform:
-          scale(1.25);
-
-        box-shadow:
-          0 0 18px var(--green);
-      }
-    }
-
-    @keyframes logoDot {
-      0%,
-      100% {
-        transform:
-          translateY(0);
-      }
-
-      50% {
-        transform:
-          translateY(-4px);
-      }
-    }
-
-    @keyframes loaderPulse {
-      0%,
-      100% {
-        opacity: .5;
-      }
-
-      50% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes loaderBar {
-      0% {
-        transform:
-          translateX(-100%);
-      }
-
-      100% {
-        transform:
-          translateX(300%);
-      }
-    }
-
-    @keyframes contactGlow {
-      from {
-        transform:
-          translateX(-50%)
-          scale(.8);
-      }
-
-      to {
-        transform:
-          translateX(-50%)
-          scale(1.3);
-      }
-    }
-
-
-    /* =========================================================
-       MOBILE
-    ========================================================= */
-
-    @media (max-width: 850px) {
-
-      .nav-links {
-        display: none;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-art {
-        min-height: 390px;
-      }
-
-      .about-grid,
-      .skills-wrapper {
-        grid-template-columns: 1fr;
-
-        gap: 40px;
-      }
-
-      .services {
-        grid-template-columns: 1fr;
-      }
-
-      .process {
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-    }
-
-
-    @media (max-width: 600px) {
-
-      section {
-        padding: 90px 0;
-      }
-
-      .hero {
-        padding-top: 120px;
-      }
-
-      .hero h1 {
-        font-size: 4rem;
-      }
-
-      .hero-art {
-        min-height: 340px;
-      }
-
-      .art-card {
-        width: 260px;
-        height: 320px;
-      }
-
-      .art-card::after {
-        font-size: 14rem;
-      }
-
-      .floating-shape {
-        width: 65px;
-        height: 65px;
-
-        right: 5px;
-      }
-
-      .floating-circle {
-        width: 48px;
-        height: 48px;
-
-        left: 5px;
-      }
-
-      .floating-square {
-        display: none;
-      }
-
-      .work-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .process {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-box {
-        padding: 60px 25px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-
-        gap: 15px;
-
-        text-align: center;
-      }
-
-      .socials {
-        flex-wrap: wrap;
-
-        justify-content: center;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-    }
-
-
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-
-        scroll-behavior: auto !important;
-
-        transition-duration: .01ms !important;
-      }
-
-      .cursor-glow {
-        display: none;
-      }
-
-    }
-
-
-/* =========================================
-   AALOK PHOTO CARD
-   Paste this at the END of your existing CSS
-========================================= */
-
-.photo-card {
-  width: 330px;
-  height: 430px;
-
-  position: relative;
-  overflow: hidden;
-
-  border-radius: 28px;
-
-  border: 1px solid rgba(255,255,255,.14);
-
-  background: #111;
-
-  transform: rotate(5deg);
-
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.55),
-    0 0 80px rgba(255,79,154,.08);
-
-  transition:
-    transform .6s cubic-bezier(.16,1,.3,1),
-    box-shadow .6s ease;
-}
-
-/* Image */
-
-.photo-card img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-
-  object-position: center;
-
-  filter:
-    grayscale(15%)
-    contrast(1.05)
-    saturate(1.05);
-
-  transform: scale(1.03);
-
-  transition:
-    transform 1s cubic-bezier(.16,1,.3,1),
-    filter .6s ease;
-}
-
-/* Gradient overlay */
-
-.photo-overlay {
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(8,8,8,.05) 20%,
-      rgba(8,8,8,.12) 45%,
-      rgba(8,8,8,.88) 100%
-    );
-
-  pointer-events: none;
-
-  z-index: 1;
-}
-
-/* Color glow */
-
-.photo-card::before {
-  content: "";
-
-  position: absolute;
-
-  width: 260px;
-  height: 260px;
-
-  top: -100px;
-  left: -100px;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--orange),
-      var(--pink),
-      var(--purple)
-    );
-
-  opacity: .28;
-
-  filter: blur(70px);
-
-  z-index: 2;
-
-  pointer-events: none;
-
-  transition:
-    transform .8s ease,
-    opacity .5s ease;
-}
-
-/* Subtle frame */
-
-.photo-card::after {
-  content: "";
-
-  position: absolute;
-  inset: 12px;
-
-  border: 1px solid rgba(255,255,255,.12);
-
-  border-radius: 20px;
-
-  pointer-events: none;
-
-  z-index: 3;
-}
-
-/* Label */
-
-.photo-label {
-  position: absolute;
-
-  left: 28px;
-  bottom: 25px;
-
-  z-index: 4;
-
-  display: flex;
-  flex-direction: column;
-
-  font-family: "Space Grotesk", sans-serif;
-
-  font-size: .75rem;
-
-  font-weight: 600;
-
-  line-height: 1.3;
-
-  text-transform: uppercase;
-
-  letter-spacing: .18em;
-
-  color: white;
-
-  opacity: .95;
-}
-
-.photo-label span:last-child {
-  color: rgba(255,255,255,.55);
-}
-
-/* Hover */
-
-.photo-card:hover {
-  transform:
-    rotate(0deg)
-    translateY(-10px)
-    scale(1.015);
-
-  box-shadow:
-    0 55px 120px rgba(0,0,0,.65),
-    0 0 100px rgba(255,79,154,.14);
-}
-
-.photo-card:hover img {
-  transform: scale(1.09);
-
-  filter:
-    grayscale(0%)
-    contrast(1.08)
-    saturate(1.12);
-}
-
-.photo-card:hover::before {
-  transform: translate(40px, 40px);
-
-  opacity: .4;
-}
-
-
-/* =========================================
-   FLOATING ANIMATION
-========================================= */
-
-.photo-card {
-  animation:
-    photoFloat 6s ease-in-out infinite;
-}
-
-@keyframes photoFloat {
-
-  0%,
-  100% {
-    transform: rotate(5deg) translateY(0);
-  }
-
-  50% {
-    transform: rotate(3deg) translateY(-12px);
-  }
-
-}
-
-/* Don't fight the hover animation */
-
-.photo-card:hover {
-  animation-play-state: paused;
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 850px) {
-
-  .photo-card {
-    width: 300px;
-    height: 390px;
-  }
-
-}
-
-@media (max-width: 600px) {
-
-  .photo-card {
-    width: 260px;
-    height: 350px;
-
-    border-radius: 24px;
-  }
-
-  .photo-label {
-    left: 22px;
-    bottom: 21px;
-
-    font-size: .68rem;
-  }
-
-}
-
-
-/* =========================================
-   CONTACT FORM
-========================================= */
-
-.contact-wrapper {
-
-  display: grid;
-
-  grid-template-columns: .85fr 1.15fr;
-
-  gap: 70px;
-
-  align-items: center;
-}
-
-
-/* LEFT */
-
-.contact-intro h2 {
-
-  font-family: "Space Grotesk", sans-serif;
-
-  font-size: clamp(3.5rem, 6vw, 6rem);
-
-  line-height: .9;
-
-  letter-spacing: -.07em;
-
-  margin-bottom: 30px;
-
-}
-
-.contact-intro p {
-
-  max-width: 470px;
-
-  color: var(--gray);
-
-  font-size: 1rem;
-
-  line-height: 1.8;
-
-}
-
-
-.contact-details {
-
-  margin-top: 45px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 20px;
-
-}
-
-
-.contact-detail {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 15px;
-
-}
-
-
-.detail-icon {
-
-  width: 45px;
-  height: 45px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 12px;
-
-  background: rgba(255,255,255,.05);
-
-  border: 1px solid var(--line);
-
-  color: var(--orange);
-
-}
-
-
-.contact-detail small {
-
-  display: block;
-
-  color: #666;
-
-  font-size: .7rem;
-
-  text-transform: uppercase;
-
-  letter-spacing: .12em;
-
-  margin-bottom: 2px;
-
-}
-
-
-.contact-detail a,
-.contact-detail div > span {
-
-  color: #ddd;
-
-  font-size: .9rem;
-
-}
-
-
-.contact-detail a {
-
-  transition: .25s ease;
-
-}
-
-
-.contact-detail a:hover {
-
-  color: var(--orange);
-
-}
-
-
-/* =========================================
-   FORM CARD
-========================================= */
-
-.contact-form-card {
-
-  position: relative;
-
-  padding: 38px;
-
-  border-radius: 25px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.075),
-      rgba(255,255,255,.025)
-    );
-
-  border: 1px solid rgba(255,255,255,.11);
-
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.35);
-
-  overflow: hidden;
-
-}
-
-
-/* gradient glow */
-
-.form-glow {
-
-  position: absolute;
-
-  width: 280px;
-  height: 280px;
-
-  top: -180px;
-  right: -100px;
-
-  border-radius: 50%;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--orange),
-      var(--pink),
-      var(--purple)
-    );
-
-  filter: blur(80px);
-
-  opacity: .18;
-
-  pointer-events: none;
-
-}
-
-
-/* FORM */
-
-#contact-form {
-
-  position: relative;
-
-  z-index: 2;
-
-}
-
-
-.form-row {
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 15px;
-
-}
-
-
-.form-group {
-
-  margin-bottom: 20px;
-
-}
-
-
-.form-group label {
-
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: #bbb;
-
-  font-size: .78rem;
-
-  font-weight: 600;
-
-}
-
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-
-  width: 100%;
-
-  padding: 14px 15px;
-
-  border-radius: 11px;
-
-  border: 1px solid rgba(255,255,255,.09);
-
-  outline: none;
-
-  background: rgba(0,0,0,.28);
-
-  color: white;
-
-  font-family: "DM Sans", sans-serif;
-
-  font-size: .88rem;
-
-  transition:
-    border-color .25s ease,
-    background .25s ease,
-    box-shadow .25s ease;
-
-}
-
-
-/* placeholders */
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-
-  color: #555;
-
-}
-
-
-/* select */
-
-.form-group select {
-
-  cursor: pointer;
-
-  appearance: none;
-
-  background-image:
-    linear-gradient(45deg, transparent 50%, #888 50%),
-    linear-gradient(135deg, #888 50%, transparent 50%);
-
-  background-position:
-    calc(100% - 18px) 52%,
-    calc(100% - 13px) 52%;
-
-  background-size:
-    5px 5px,
-    5px 5px;
-
-  background-repeat: no-repeat;
-
-}
-
-
-.form-group select option {
-
-  background: #141414;
-
-  color: white;
-
-}
-
-
-.form-group textarea {
-
-  resize: vertical;
-
-  min-height: 130px;
-
-}
-
-
-/* focus */
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-
-  border-color: rgba(255,92,53,.7);
-
-  background: rgba(255,255,255,.045);
-
-  box-shadow:
-    0 0 0 3px rgba(255,92,53,.08),
-    0 10px 30px rgba(0,0,0,.15);
-
-}
-
-
-/* =========================================
-   SUBMIT BUTTON
-========================================= */
-
-.form-submit {
-
-  width: 100%;
-
-  border: none;
-
-  cursor: pointer;
-
-  padding: 16px 20px;
-
-  border-radius: 11px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  background: white;
-
-  color: black;
-
-  font-family: "DM Sans", sans-serif;
-
-  font-size: .9rem;
-
-  font-weight: 700;
-
-  transition:
-    transform .3s ease,
-    box-shadow .3s ease,
-    background .3s ease;
-
-}
-
-
-.form-submit:hover {
-
-  transform: translateY(-3px);
-
-  box-shadow:
-    0 15px 40px rgba(255,255,255,.12);
-
-}
-
-
-.form-submit:hover .button-arrow {
-
-  transform: translateX(5px);
-
-}
-
-
-.button-arrow {
-
-  font-size: 1.2rem;
-
-  transition: transform .3s ease;
-
-}
-
-
-/* loading */
-
-.form-submit.loading {
-
-  pointer-events: none;
-
-  opacity: .7;
-
-}
-
-
-.form-submit.loading .button-text::after {
-
-  content: "...";
-
-  animation: dots 1.2s infinite;
-
-}
-
-
-@keyframes dots {
-
-  0% {
-    content: ".";
-  }
-
-  33% {
-    content: "..";
-  }
-
-  66% {
-    content: "...";
-  }
-
-  100% {
-    content: ".";
-  }
-
-}
-
-
-/* =========================================
-   FORM STATUS
-========================================= */
-
-.form-status {
-
-  min-height: 22px;
-
-  margin-top: 15px;
-
-  text-align: center;
-
-  font-size: .8rem;
-
-}
-
-
-.form-status.success {
-
-  color: #35e18b;
-
-}
-
-
-.form-status.error {
-
-  color: #ff6b6b;
-
-}
-
-
-/* =========================================
-   SUCCESS ANIMATION
-========================================= */
-
-.contact-form-card.sent {
-
-  border-color: rgba(53,225,139,.3);
-
-}
-
-
-.contact-form-card.sent .form-submit {
-
-  background: #35e18b;
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 850px) {
-
-  .contact-wrapper {
-
-    grid-template-columns: 1fr;
-
-    gap: 50px;
-
-  }
-
-}
-
-
-@media (max-width: 600px) {
-
-  .contact-form-card {
-
-    padding: 25px 20px;
-
-    border-radius: 20px;
-
-  }
-
-  .form-row {
-
-    grid-template-columns: 1fr;
-
-    gap: 0;
-
-  }
-
-  .contact-intro h2 {
-
-    font-size: 3.5rem;
-
-  }
-
-}
-  </style>
-</head>
-
-
-<body>
-
-
-
-  <div class="noise"></div>
-
-
-
-
-  <div class="cursor-glow"></div>
-
-
-
-  <div class="loader">
-
-    <div class="loader-inner">
-
-      <div class="loader-logo">
-        Aalok<span> Portfolio</span>
-      </div>
-
-      <div class="loader-bar"></div>
-
-    </div>
-
-  </div>
-
-
-
-
-  <nav>
-
-    <div class="container nav-inner">
-
-      <a href="#" class="logo">
-        Aalok<span>.</span>
-      </a>
-
-
-      <ul class="nav-links">
-
-        <li>
-          <a href="#about">
-            About
-          </a>
-        </li>
-
-        <li>
-          <a href="#services">
-            Services
-          </a>
-        </li>
-
-        <li>
-          <a href="#skills">
-            Skills
-          </a>
-        </li>
-
-        <li>
-          <a href="#work">
-            Work
-          </a>
-        </li>
-
-      </ul>
-
-
-      <a href="#contact" class="nav-contact">
-        Let's Talk
-      </a>
-
-    </div>
-
-  </nav>
-
-
-
-
-  <main>
-
-
-
-
-    <section class="hero">
-
-      <div class="container hero-grid">
-
-
-        <div>
-
-          <div class="available">
-
-            <span class="green-dot"></span>
-
-            Available for freelance work
-
-          </div>
-
-
-          <h1>
-
-            <span class="line">
-              Design
-            </span>
-
-            <span class="line">
-              Develop
-            </span>
-
-            <span class="line gradient-text">
-              Create
-            </span>
-
-          </h1>
-
-
-          <p class="hero-description">
-
-            I'm <strong>Aalok Barnawal</strong> —
-            a Graphic Designer and Front-End Developer
-            creating bold visual identities, engaging
-            digital experiences, and modern websites.
-
-          </p>
-
-
-          <div class="hero-buttons">
-
-            <a
-              href="#work"
-              class="button button-primary"
-            >
-              Explore My Work →
-            </a>
-
-            <a
-              href="#contact"
-              class="button button-secondary"
-            >
-              Let's Work Together
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- HERO ART -->
-
-        <div class="hero-art">
-
-
-  <div class="photo-card">
-
-    <img
-      src="hero-image.webp"
-      alt="Portrait of Aalok Barnawal"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Aalok Barnawal — Graphic Designer & Front-End Developer</title>
+
+    <meta
+      name="description"
+      content="Aalok Barnawal — Graphic Designer and Front-End Developer creating bold visuals and modern digital experiences."
     />
 
-    <div class="photo-overlay"></div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
 
-    <div class="photo-label">
-      <span>Graphic</span>
-      <span>× Web</span>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Script -->
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body>
+    <div class="noise"></div>
+
+    <div class="cursor-glow"></div>
+
+    <div class="loader">
+      <div class="loader-inner">
+        <div class="loader-logo">Aalok<span> Portfolio</span></div>
+        <div class="loader-bar"></div>
+      </div>
     </div>
 
-  </div>
+    <nav>
+      <div class="container nav-inner">
+        <a href="#" class="logo"> Aalok<span>.</span> </a>
 
+        <ul class="nav-links">
+          <li>
+            <a href="#about"> About </a>
+          </li>
+          <li>
+            <a href="#services"> Services </a>
+          </li>
+          <li>
+            <a href="#skills"> Skills </a>
+          </li>
+          <li>
+            <a href="#work"> Work </a>
+          </li>
+        </ul>
 
-
-          <div class="floating-shape"></div>
-
-          <div class="floating-circle"></div>
-
-          <div class="floating-square"></div>
-
-        </div>
-
+        <a href="#contact" class="nav-contact"> Let's Talk </a>
       </div>
+    </nav>
 
-    </section>
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="available">
+              <span class="green-dot"></span>
+              Available for freelance work
+            </div>
 
+            <h1>
+              <span class="line"> Design </span>
+              <span class="line"> Develop </span>
+              <span class="line gradient-text"> Create </span>
+            </h1>
 
-    <!-- =====================================================
-         ABOUT
-    ====================================================== -->
-
-    <section id="about">
-
-      <div class="container">
-
-        <div class="section-number reveal">
-          01 — About Me
-        </div>
-
-
-        <h2 class="section-title reveal">
-
-          Designer at heart.<br>
-
-          Developer by craft.
-
-        </h2>
-
-
-        <div class="about-grid">
-
-
-          <div class="about-copy reveal">
-
-            <p>
-              Hey, I'm <strong>Aalok Barnawal</strong>.
-              I'm a Graphic Designer with a strong interest
-              in Front-End Web Development.
+            <p class="hero-description">
+              I'm <strong>Aalok Barnawal</strong> — a Graphic Designer and
+              Front-End Developer creating bold visual identities, engaging
+              digital experiences, and modern websites.
             </p>
 
-
-            <p>
-              I love combining visual creativity with
-              technology. From creating a brand identity
-              or social media design to building a complete
-              responsive website, I enjoy taking an idea
-              and turning it into something people can
-              actually see and interact with.
-            </p>
-
-
-            <p>
-              My goal is simple: create work that looks good,
-              feels intentional, and actually communicates
-              something.
-            </p>
-
-          </div>
-
-
-          <div class="about-highlight reveal">
-
-            <h3>
-              Who I Am
-            </h3>
-
-
-            <div class="info-row">
-
-              <span>
-                Name
-              </span>
-
-              <span>
-                Aalok Barnawal
-              </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-              <span>
-                Role
-              </span>
-
-              <span>
-                Graphic Designer
-              </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-              <span>
-                Also
-              </span>
-
-              <span>
-                Front-End Developer
-              </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-              <span>
-                Creative Focus
-              </span>
-
-              <span>
-                Visual Design & Web
-              </span>
-
-            </div>
-
-
-            <div class="info-row">
-
-              <span>
-                Availability
-              </span>
-
-              <span>
-                Freelance / Projects
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-
-    <section id="services">
-
-      <div class="container">
-
-        <div class="section-number reveal">
-          02 — What I Do
-        </div>
-
-
-        <h2 class="section-title reveal">
-
-          Ideas into visuals.<br>
-
-          Visuals into experiences.
-
-        </h2>
-
-
-        <div class="services">
-
-
-          <div class="service reveal">
-
-            <div class="service-number">
-              01
-            </div>
-
-            <div class="service-icon">
-              ✦
-            </div>
-
-            <h3>
-              Graphic Design
-            </h3>
-
-            <p>
-              Creative visual solutions designed to make
-              brands, content, and ideas stand out.
-            </p>
-
-          </div>
-
-
-          <div
-            class="service reveal"
-            style="transition-delay:.1s"
-          >
-
-            <div class="service-number">
-              02
-            </div>
-
-            <div class="service-icon">
-              ◈
-            </div>
-
-            <h3>
-              Brand & Visual Identity
-            </h3>
-
-            <p>
-              Logos, typography, color systems and visual
-              identities that give brands a recognizable
-              personality.
-            </p>
-
-          </div>
-
-
-          <div
-            class="service reveal"
-            style="transition-delay:.2s"
-          >
-
-            <div class="service-number">
-              03
-            </div>
-
-            <div class="service-icon">
-              &lt;/&gt;
-            </div>
-
-            <h3>
-              Front-End Development
-            </h3>
-
-            <p>
-              Responsive, modern websites built with clean
-              front-end code and thoughtful UI.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-
-    <section id="skills">
-
-      <div class="container">
-
-        <div class="section-number reveal">
-          03 — Skills
-        </div>
-
-
-        <div class="skills-wrapper">
-
-
-          <div class="skills-intro reveal">
-
-            <h2 class="section-title">
-
-              My creative<br>
-              toolkit.
-
-            </h2>
-
-
-            <p>
-              A combination of design thinking,
-              visual communication, and front-end
-              development helps me approach projects
-              from both sides.
-            </p>
-
-          </div>
-
-
-          <div class="skills reveal">
-
-            <span class="skill">
-              Graphic Design
-            </span>
-
-            <span class="skill">
-              Logo Design
-            </span>
-
-            <span class="skill">
-              Brand Identity
-            </span>
-
-            <span class="skill">
-              Poster Design
-            </span>
-
-            <span class="skill">
-              Social Media Design
-            </span>
-
-            <span class="skill">
-              Typography
-            </span>
-
-            <span class="skill">
-              Color Theory
-            </span>
-
-            <span class="skill">
-              UI Design
-            </span>
-
-            <span class="skill">
-              HTML
-            </span>
-
-            <span class="skill">
-              CSS
-            </span>
-
-            <span class="skill">
-              JavaScript
-            </span>
-
-            <span class="skill">
-              Responsive Design
-            </span>
-
-            <span class="skill">
-              Landing Pages
-            </span>
-
-            <span class="skill">
-              Web UI
-            </span>
-
-            <span class="skill">
-              Git
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    
-
-    <section id="work">
-
-      <div class="container">
-
-        <div class="section-number reveal">
-          04 — Selected Work
-        </div>
-
-
-        <h2 class="section-title reveal">
-
-          Things I've<br>
-          created.
-
-        </h2>
-
-
-        <div class="work-grid">
-
-
-          <article class="work-card reveal">
-
-            <div class="work-image one">
-
-              <div class="fake-poster">
-                BRAND
-              </div>
-
-            </div>
-
-
-            <div class="work-content">
-
-              <div class="work-category">
-                Graphic Design
-              </div>
-
-              <h3>
-                Brand Identity
-              </h3>
-
-              <p>
-                A visual identity concept focused on
-                bold typography and memorable visuals.
-              </p>
-
-            </div>
-
-          </article>
-
-
-          <article
-            class="work-card reveal"
-            style="transition-delay:.1s"
-          >
-
-            <div class="work-image two">
-
-              <div class="fake-poster">
-                WEB
-              </div>
-
-            </div>
-
-
-            <div class="work-content">
-
-              <div class="work-category">
-                Front-End Development
-              </div>
-
-              <h3>
-                Creative Landing Page
-              </h3>
-
-              <p>
-                A modern responsive landing page combining
-                strong visuals with interactive UI.
-              </p>
-
-            </div>
-
-          </article>
-
-
-          <article
-            class="work-card reveal"
-            style="transition-delay:.15s"
-          >
-
-            <div class="work-image three">
-
-              <div class="fake-poster">
-                UI
-              </div>
-
-            </div>
-
-
-            <div class="work-content">
-
-              <div class="work-category">
-                UI Design
-              </div>
-
-              <h3>
-                Digital Interface
-              </h3>
-
-              <p>
-                A clean interface concept designed around
-                usability, hierarchy, and visual balance.
-              </p>
-
-            </div>
-
-          </article>
-
-
-          <article
-            class="work-card reveal"
-            style="transition-delay:.2s"
-          >
-
-            <div class="work-image four">
-
-              <div class="fake-poster">
-                ART
-              </div>
-
-            </div>
-
-
-            <div class="work-content">
-
-              <div class="work-category">
-                Visual Design
-              </div>
-
-              <h3>
-                Creative Campaign
-              </h3>
-
-              <p>
-                A visual campaign exploring color,
-                composition, typography, and storytelling.
-              </p>
-
-            </div>
-
-          </article>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
- 
-
-    <section>
-
-      <div class="container">
-
-        <div class="section-number reveal">
-          05 — My Process
-        </div>
-
-
-        <h2 class="section-title reveal">
-
-          From idea<br>
-          to final result.
-
-        </h2>
-
-
-        <div class="process">
-
-
-          <div class="process-item reveal">
-
-            <span>
-              01
-            </span>
-
-            <h3>
-              Discover
-            </h3>
-
-            <p>
-              Understand the idea, audience,
-              goals, and direction.
-            </p>
-
-          </div>
-
-
-          <div class="process-item reveal">
-
-            <span>
-              02
-            </span>
-
-            <h3>
-              Explore
-            </h3>
-
-            <p>
-              Research, experiment, sketch,
-              and develop visual concepts.
-            </p>
-
-          </div>
-
-
-          <div class="process-item reveal">
-
-            <span>
-              03
-            </span>
-
-            <h3>
-              Create
-            </h3>
-
-            <p>
-              Turn the strongest concept into
-              a polished design or website.
-            </p>
-
-          </div>
-
-
-          <div class="process-item reveal">
-
-            <span>
-              04
-            </span>
-
-            <h3>
-              Refine
-            </h3>
-
-            <p>
-              Polish the details and make sure
-              everything feels intentional.
-            </p>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
- 
-
-    <section id="contact">
-
-  <div class="container">
-
-    <div class="contact-wrapper">
-
-      <!-- LEFT SIDE -->
-      <div class="contact-intro">
-
-        <div class="section-number">
-          06 — Contact
-        </div>
-
-        <h2>
-          Let's build
-          <span class="gradient-text">something.</span>
-        </h2>
-
-        <p>
-          Have a project, idea, or collaboration in mind?
-          Tell me what you're working on and I'll get back
-          to you as soon as possible.
-        </p>
-
-        <div class="contact-details">
-
-          <div class="contact-detail">
-            <span class="detail-icon">✉</span>
-
-            <div>
-              <small>Email</small>
-              <a href="mailto:aalokbarnawal44@gmail.com">
-                aalokbarnawal44@gmail.com
+            <div class="hero-buttons">
+              <a href="#work" class="button button-primary">
+                Explore My Work →
+              </a>
+              <a href="#contact" class="button button-secondary">
+                Let's Work Together
               </a>
             </div>
           </div>
 
-          <div class="contact-detail">
-            <span class="detail-icon">✦</span>
+          <!-- HERO ART -->
+          <div class="hero-art">
+            <div class="photo-card">
+              <img
+                src="hero-image.webp"
+                alt="Portrait of Aalok Barnawal"
+              />
+              <div class="photo-overlay"></div>
+              <div class="photo-label">
+                <span>Graphic</span>
+                <span>× Web</span>
+              </div>
+            </div>
 
-            <div>
-              <small>Availability</small>
-              <span>Freelance / Projects</span>
+            <div class="floating-shape"></div>
+            <div class="floating-circle"></div>
+            <div class="floating-square"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           ABOUT
+      ====================================================== -->
+      <section id="about">
+        <div class="container">
+          <div class="section-number reveal">01 — About Me</div>
+
+          <h2 class="section-title reveal">
+            Designer at heart.<br />
+            Developer by craft.
+          </h2>
+
+          <div class="about-grid">
+            <div class="about-copy reveal">
+              <p>
+                Hey, I'm <strong>Aalok Barnawal</strong>. I'm a Graphic Designer
+                with a strong interest in Front-End Web Development.
+              </p>
+
+              <p>
+                I love combining visual creativity with technology. From
+                creating a brand identity or social media design to building a
+                complete responsive website, I enjoy taking an idea and turning
+                it into something people can actually see and interact with.
+              </p>
+
+              <p>
+                My goal is simple: create work that looks good, feels
+                intentional, and actually communicates something.
+              </p>
+            </div>
+
+            <div class="about-highlight reveal">
+              <h3>Who I Am</h3>
+
+              <div class="info-row">
+                <span>Name</span>
+                <span>Aalok Barnawal</span>
+              </div>
+
+              <div class="info-row">
+                <span>Role</span>
+                <span>Graphic Designer</span>
+              </div>
+
+              <div class="info-row">
+                <span>Also</span>
+                <span>Front-End Developer</span>
+              </div>
+
+              <div class="info-row">
+                <span>Creative Focus</span>
+                <span>Visual Design & Web</span>
+              </div>
+
+              <div class="info-row">
+                <span>Availability</span>
+                <span>Freelance / Projects</span>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
+      <!-- =====================================================
+           SERVICES
+      ====================================================== -->
+      <section id="services">
+        <div class="container">
+          <div class="section-number reveal">02 — What I Do</div>
+
+          <h2 class="section-title reveal">
+            Ideas into visuals.<br />
+            Visuals into experiences.
+          </h2>
+
+          <div class="services">
+            <div class="service reveal">
+              <div class="service-number">01</div>
+              <div class="service-icon">✦</div>
+              <h3>Graphic Design</h3>
+              <p>
+                Creative visual solutions designed to make brands, content, and
+                ideas stand out.
+              </p>
+            </div>
+
+            <div class="service reveal" style="transition-delay: 0.1s">
+              <div class="service-number">02</div>
+              <div class="service-icon">◈</div>
+              <h3>Brand & Visual Identity</h3>
+              <p>
+                Logos, typography, color systems and visual identities that
+                give brands a recognizable personality.
+              </p>
+            </div>
+
+            <div class="service reveal" style="transition-delay: 0.2s">
+              <div class="service-number">03</div>
+              <div class="service-icon">&lt;/&gt;</div>
+              <h3>Front-End Development</h3>
+              <p>
+                Responsive, modern websites built with clean front-end code and
+                thoughtful UI.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           SKILLS
+      ====================================================== -->
+      <section id="skills">
+        <div class="container">
+          <div class="section-number reveal">03 — Skills</div>
+
+          <div class="skills-wrapper">
+            <div class="skills-intro reveal">
+              <h2 class="section-title">
+                My creative<br />
+                toolkit.
+              </h2>
+
+              <p>
+                A combination of design thinking, visual communication, and
+                front-end development helps me approach projects from both
+                sides.
+              </p>
+            </div>
+
+            <div class="skills reveal">
+              <span class="skill">Graphic Design</span>
+              <span class="skill">Logo Design</span>
+              <span class="skill">Brand Identity</span>
+              <span class="skill">Poster Design</span>
+              <span class="skill">Social Media Design</span>
+              <span class="skill">Typography</span>
+              <span class="skill">Color Theory</span>
+              <span class="skill">UI Design</span>
+              <span class="skill">HTML</span>
+              <span class="skill">CSS</span>
+              <span class="skill">JavaScript</span>
+              <span class="skill">Responsive Design</span>
+              <span class="skill">Landing Pages</span>
+              <span class="skill">Web UI</span>
+              <span class="skill">Git</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           WORK
+      ====================================================== -->
+      <section id="work">
+        <div class="container">
+          <div class="section-number reveal">04 — Selected Work</div>
+
+          <h2 class="section-title reveal">
+            Things I've<br />
+            created.
+          </h2>
+
+          <div class="work-grid">
+            <article class="work-card reveal">
+              <div class="work-image one">
+                <div class="fake-poster">BRAND</div>
+              </div>
+
+              <div class="work-content">
+                <div class="work-category">Graphic Design</div>
+                <h3>Brand Identity</h3>
+                <p>
+                  A visual identity concept focused on bold typography and
+                  memorable visuals.
+                </p>
+              </div>
+            </article>
+
+            <article class="work-card reveal" style="transition-delay: 0.1s">
+              <div class="work-image two">
+                <div class="fake-poster">WEB</div>
+              </div>
+
+              <div class="work-content">
+                <div class="work-category">Front-End Development</div>
+                <h3>Creative Landing Page</h3>
+                <p>
+                  A modern responsive landing page combining strong visuals
+                  with interactive UI.
+                </p>
+              </div>
+            </article>
+
+            <article class="work-card reveal" style="transition-delay: 0.15s">
+              <div class="work-image three">
+                <div class="fake-poster">UI</div>
+              </div>
+
+              <div class="work-content">
+                <div class="work-category">UI Design</div>
+                <h3>Digital Interface</h3>
+                <p>
+                  A clean interface concept designed around usability,
+                  hierarchy, and visual balance.
+                </p>
+              </div>
+            </article>
+
+            <article class="work-card reveal" style="transition-delay: 0.2s">
+              <div class="work-image four">
+                <div class="fake-poster">ART</div>
+              </div>
+
+              <div class="work-content">
+                <div class="work-category">Visual Design</div>
+                <h3>Creative Campaign</h3>
+                <p>
+                  A visual campaign exploring color, composition, typography,
+                  and storytelling.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PROCESS
+      ====================================================== -->
+      <section>
+        <div class="container">
+          <div class="section-number reveal">05 — My Process</div>
+
+          <h2 class="section-title reveal">
+            From idea<br />
+            to final result.
+          </h2>
+
+          <div class="process">
+            <div class="process-item reveal">
+              <span>01</span>
+              <h3>Discover</h3>
+              <p>Understand the idea, audience, goals, and direction.</p>
+            </div>
+
+            <div class="process-item reveal">
+              <span>02</span>
+              <h3>Explore</h3>
+              <p>
+                Research, experiment, sketch, and develop visual concepts.
+              </p>
+            </div>
+
+            <div class="process-item reveal">
+              <span>03</span>
+              <h3>Create</h3>
+              <p>
+                Turn the strongest concept into a polished design or website.
+              </p>
+            </div>
+
+            <div class="process-item reveal">
+              <span>04</span>
+              <h3>Refine</h3>
+              <p>
+                Polish the details and make sure everything feels intentional.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           CONTACT
+      ====================================================== -->
+      <section id="contact">
+        <div class="container">
+          <div class="contact-wrapper">
+            <!-- LEFT SIDE -->
+            <div class="contact-intro">
+              <div class="section-number">06 — Contact</div>
+
+              <h2>
+                Let's build
+                <span class="gradient-text">something.</span>
+              </h2>
+
+              <p>
+                Have a project, idea, or collaboration in mind? Tell me what
+                you're working on and I'll get back to you as soon as possible.
+              </p>
+
+              <div class="contact-details">
+                <div class="contact-detail">
+                  <span class="detail-icon">✉</span>
+                  <div>
+                    <small>Email</small>
+                    <a href="mailto:aalokbarnawal44@gmail.com">
+                      aalokbarnawal44@gmail.com
+                    </a>
+                  </div>
+                </div>
+
+                <div class="contact-detail">
+                  <span class="detail-icon">✦</span>
+                  <div>
+                    <small>Availability</small>
+                    <span>Freelance / Projects</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FORM -->
+            <div class="contact-form-card">
+              <div class="form-glow"></div>
+
+              <form
+                id="contact-form"
+                action="https://api.web3forms.com/submit"
+                method="POST"
+              >
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value="4524f329-7f03-4d77-8ff6-b4820242ef91"
+                />
+                <input
+                  type="hidden"
+                  name="subject"
+                  value="New Portfolio Contact — Aalok Barnawal"
+                />
+                <input
+                  type="hidden"
+                  name="from_name"
+                  value="Aalok Portfolio"
+                />
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  class="hidden"
+                  style="display: none"
+                />
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input
+                      id="name"
+                      type="text"
+                      name="name"
+                      placeholder="John Doe"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      placeholder="john@example.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="project">What do you need?</label>
+                  <select id="project" name="project_type" required>
+                    <option value="" disabled selected>
+                      Select a service
+                    </option>
+                    <option value="Graphic Design">Graphic Design</option>
+                    <option value="Brand Identity">Brand Identity</option>
+                    <option value="UI Design">UI Design</option>
+                    <option value="Website">Website / Front-End</option>
+                    <option value="Other">Something else</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Tell me about your project</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    placeholder="Tell me a little about your idea..."
+                    required
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  class="form-submit"
+                  id="submit-button"
+                >
+                  <span class="button-text">Send Message</span>
+                  <span class="button-arrow">→</span>
+                </button>
+
+                <div
+                  class="form-status"
+                  id="form-status"
+                  aria-live="polite"
+                ></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+    <footer>
+      <div class="container footer-inner">
+        <div>
+          © 2026 Aalok Barnawal. Designed & built with creativity.
         </div>
 
+        <div class="socials">
+          <a
+            href="https://www.instagram.com/whoaalok"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram
+          </a>
+          <a
+            href="https://www.behance.net/chillpigaming"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Behance
+          </a>
+          <a
+            href="https://github.com/aalokbarnawal"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://np.linkedin.com/in/aalok-barnawal-12b25b3a4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </div>
       </div>
-
-
-      <!-- FORM -->
-      <div class="contact-form-card">
-
-        <div class="form-glow"></div>
-
-        <form
-          id="contact-form"
-          action="https://api.web3forms.com/submit"
-          method="POST"
-        >
-          <input
-            type="hidden"
-            name="access_key"
-            value="4524f329-7f03-4d77-8ff6-b4820242ef91"
-          >
-
-          <input
-            type="hidden"
-            name="subject"
-            value="New Portfolio Contact — Aalok Barnawal"
-          >
-
-          <input
-            type="hidden"
-            name="from_name"
-            value="Aalok Portfolio"
-          >
-
-          <input
-            type="checkbox"
-            name="botcheck"
-            class="hidden"
-            style="display:none"
-          >
-
-
-          <div class="form-row">
-
-            <div class="form-group">
-
-              <label for="name">
-                Your Name
-              </label>
-
-              <input
-                id="name"
-                type="text"
-                name="name"
-                placeholder="John Doe"
-                required
-              >
-
-            </div>
-
-
-            <div class="form-group">
-
-              <label for="email">
-                Email
-              </label>
-
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="john@example.com"
-                required
-              >
-
-            </div>
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="project">
-              What do you need?
-            </label>
-
-            <select
-              id="project"
-              name="project_type"
-              required
-            >
-
-              <option value="" disabled selected>
-                Select a service
-              </option>
-
-              <option value="Graphic Design">
-                Graphic Design
-              </option>
-
-              <option value="Brand Identity">
-                Brand Identity
-              </option>
-
-              <option value="UI Design">
-                UI Design
-              </option>
-
-              <option value="Website">
-                Website / Front-End
-              </option>
-
-              <option value="Other">
-                Something else
-              </option>
-
-            </select>
-
-          </div>
-
-
-
-          <div class="form-group">
-
-            <label for="message">
-              Tell me about your project
-            </label>
-
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              placeholder="Tell me a little about your idea..."
-              required
-            ></textarea>
-
-          </div>
-
-
-          <button
-            type="submit"
-            class="form-submit"
-            id="submit-button"
-          >
-
-            <span class="button-text">
-              Send Message
-            </span>
-
-            <span class="button-arrow">
-              →
-            </span>
-
-          </button>
-
-
-          <div
-            class="form-status"
-            id="form-status"
-            aria-live="polite"
-          ></div>
-
-        </form>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-  </main>
-
-
-  
-
-  <footer>
-
-    <div class="container footer-inner">
-
-      <div>
-        © 2026 Aalok Barnawal.
-        Designed & built with creativity.
-      </div>
-
-
-      <div class="socials">
-
-        <a
-          href="https://www.instagram.com/whoaalok"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Instagram
-        </a>
-
-        <a
-          href="https://www.behance.net/chillpigaming"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Behance
-        </a>
-
-        <a
-          href="https://github.com/aalokbarnawal"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub
-        </a>
-
-        <a
-          href="https://np.linkedin.com/in/aalok-barnawal-12b25b3a4"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          LinkedIn
-        </a>
-
-      </div>
-
-    </div>
-
-  </footer>
-
-
-  
-
-  <script>
-
-const _0x38fa8e=_0x33f7;(function(_0x3432fe,_0x1b7a27){const _0x2c33ad=_0x33f7,_0x13cb93=_0x3432fe();while(!![]){try{const _0x491f0c=-parseInt(_0x2c33ad(0x18b))/0x1+parseInt(_0x2c33ad(0x176))/0x2+-parseInt(_0x2c33ad(0x169))/0x3+-parseInt(_0x2c33ad(0x173))/0x4*(parseInt(_0x2c33ad(0x1b0))/0x5)+-parseInt(_0x2c33ad(0x1b5))/0x6*(-parseInt(_0x2c33ad(0x16a))/0x7)+-parseInt(_0x2c33ad(0x189))/0x8+-parseInt(_0x2c33ad(0x16f))/0x9*(-parseInt(_0x2c33ad(0x16d))/0xa);if(_0x491f0c===_0x1b7a27)break;else _0x13cb93['push'](_0x13cb93['shift']());}catch(_0x42e6e7){_0x13cb93['push'](_0x13cb93['shift']());}}}(_0x4339,0x8b600));const _0x24eca8=_0x8214;(function(_0x3ab512,_0x1c9262){const _0x429122=_0x33f7,_0x265043=_0x8214,_0x20702d=_0x3ab512();while(!![]){try{const _0x263ab8=-parseInt(_0x265043(0xdc))/0x1+-parseInt(_0x265043(0xf8))/0x2*(parseInt(_0x265043(0x109))/0x3)+parseInt(_0x265043(0xd7))/0x4+-parseInt(_0x265043(0xde))/0x5*(parseInt(_0x265043(0xfe))/0x6)+parseInt(_0x265043(0x10e))/0x7+parseInt(_0x265043(0xd8))/0x8*(parseInt(_0x265043(0x10b))/0x9)+parseInt(_0x265043(0x10a))/0xa;if(_0x263ab8===_0x1c9262)break;else _0x20702d['push'](_0x20702d['shift']());}catch(_0x10599f){_0x20702d[_0x429122(0x1a1)](_0x20702d[_0x429122(0x16c)]());}}}(_0x44ec,0x7f01e),window[_0x24eca8(0xe7)](_0x24eca8(0xea),()=>{const _0x17404a=_0x24eca8,_0xf7ebe0=document[_0x17404a(0x10d)]('.loader');setTimeout(()=>{const _0x58f25f=_0x17404a;_0xf7ebe0[_0x58f25f(0xf2)][_0x58f25f(0xf4)](_0x58f25f(0xeb));},0x2bc);}));const nav=document[_0x38fa8e(0x184)](_0x24eca8(0x102));function _0x44ec(){const _0x4622bc=_0x38fa8e,_0x173e44=[_0x4622bc(0x19b),_0x4622bc(0x190),_0x4622bc(0x19f),_0x4622bc(0x197),_0x4622bc(0x1a2),'remove',_0x4622bc(0x1a5),_0x4622bc(0x17c),_0x4622bc(0x16b),_0x4622bc(0x182),'hidden',_0x4622bc(0x186),_0x4622bc(0x1b6),_0x4622bc(0x196),_0x4622bc(0x18a),_0x4622bc(0x198),_0x4622bc(0x185),_0x4622bc(0x187),_0x4622bc(0x1ad),_0x4622bc(0x183),_0x4622bc(0x177),_0x4622bc(0x17d),_0x4622bc(0x194),_0x4622bc(0x1af),_0x4622bc(0x18c),'deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateX(',_0x4622bc(0x18f),_0x4622bc(0x1aa),_0x4622bc(0x179),_0x4622bc(0x19c),_0x4622bc(0x1b2),_0x4622bc(0x1b4),_0x4622bc(0x168),_0x4622bc(0x174),_0x4622bc(0x18e),_0x4622bc(0x18d),_0x4622bc(0x1a8),_0x4622bc(0x1a7),_0x4622bc(0x195),'smooth',_0x4622bc(0x17e),_0x4622bc(0x1a9),_0x4622bc(0x178),_0x4622bc(0x1a4),_0x4622bc(0x184),_0x4622bc(0x171),_0x4622bc(0x1b3),_0x4622bc(0x17a),_0x4622bc(0x19e),_0x4622bc(0x1ab),'observe',_0x4622bc(0x192),_0x4622bc(0x199),_0x4622bc(0x188),_0x4622bc(0x1b1),_0x4622bc(0x175),'getAttribute',_0x4622bc(0x1a0),'388296VdOtNQ','click',_0x4622bc(0x16e),_0x4622bc(0x181),'mousemove'];return _0x44ec=function(){return _0x173e44;},_0x44ec();}window[_0x38fa8e(0x1a5)](_0x38fa8e(0x17b),()=>{const _0x24acbc=_0x24eca8;window[_0x24acbc(0xd0)]>0x28?nav[_0x24acbc(0xf2)][_0x24acbc(0xf4)](_0x24acbc(0xd1)):nav[_0x24acbc(0xf2)][_0x24acbc(0xe6)](_0x24acbc(0xd1));},{'passive':!![]});const revealElements=document[_0x24eca8(0xf5)]('.reveal'),revealObserver=new IntersectionObserver(_0x4501d6=>{const _0x4f128b=_0x24eca8;_0x4501d6[_0x4f128b(0xd5)](_0x30b311=>{const _0xac2900=_0x4f128b;_0x30b311[_0xac2900(0xf6)]&&(_0x30b311['target'][_0xac2900(0xf2)][_0xac2900(0xf4)](_0xac2900(0x101)),revealObserver[_0xac2900(0xd2)](_0x30b311[_0xac2900(0xf3)]));});},{'threshold':0.12,'rootMargin':_0x24eca8(0x10c)});revealElements[_0x38fa8e(0x192)](_0x102bbf=>{const _0x19c196=_0x24eca8;revealObserver[_0x19c196(0xd4)](_0x102bbf);});const cursorGlow=document[_0x38fa8e(0x184)](_0x24eca8(0xd9));let mouseX=0x0,mouseY=0x0,glowX=0x0,glowY=0x0;if(window[_0x24eca8(0x105)]('(pointer:\x20fine)')[_0x38fa8e(0x1b6)]){window[_0x24eca8(0xe7)](_0x24eca8(0xe0),_0x1224c7=>{const _0x1e9ba4=_0x24eca8;mouseX=_0x1224c7[_0x1e9ba4(0xfc)],mouseY=_0x1224c7[_0x1e9ba4(0xff)];},{'passive':!![]});function animateGlow(){const _0x2adbba=_0x24eca8;glowX+=(mouseX-glowX)*0.08,glowY+=(mouseY-glowY)*0.08,cursorGlow[_0x2adbba(0xee)][_0x2adbba(0x103)]=glowX+'px',cursorGlow[_0x2adbba(0xee)][_0x2adbba(0xf0)]=glowY+'px',requestAnimationFrame(animateGlow);}animateGlow();}function _0x4339(){const _0xf98f71=['6ijVmbh','5CjjteE','862824voAQsi','clientY','scrollY','innerHTML','594858TJDyER','matches','visible','1439151KbjsxR','14dSzZqX','px,\x20','shift','120770PesrJU','243335aogrRf','1242vNmVBH','replace','6708744TJOPga','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateX(','461852DulxKu','nav','.cursor-glow','1545442nkzCzM','querySelectorAll','72EFVAXJ','a[href^=\x22#\x22]','scrolled','scroll','.hero-art','isIntersecting','915624gYqsxP','mousemove','.work-card','transform','load','add','querySelector','height','getBoundingClientRect','classList','3704124LxTfah','8424568jWyItD','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20translateY(-8px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','418502cigPTQ','href','preventDefault','left','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20perspective(900px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateY(','2026','px)','forEach','.art-card','transitionDelay','rotate(7deg)','style','(pointer:\x20fine)','top','mouseleave','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotate(7deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20perspective(1000px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20rotateY(','scrollTo','126hTwQZD','translateY(0)','unobserve','start','width','push','.skill','.button-primary,\x20.nav-contact','0px\x200px\x20-50px\x200px','addEventListener','footer','scrollIntoView','matchMedia','989020pELeao','clientX','translate(','getFullYear','target','deg)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20translateY(-8px)\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'];_0x4339=function(){return _0xf98f71;};return _0x4339();}const heroArt=document[_0x38fa8e(0x184)](_0x24eca8(0xe8)),artCard=document[_0x24eca8(0x10d)](_0x38fa8e(0x193));heroArt&&artCard&&window[_0x24eca8(0x105)]('(pointer:\x20fine)')[_0x38fa8e(0x1b6)]&&(heroArt[_0x24eca8(0xe7)](_0x24eca8(0xe0),_0x4f6901=>{const _0x41c111=_0x38fa8e,_0x2fd404=_0x24eca8,_0x28d75c=heroArt[_0x2fd404(0xec)](),_0xbf3e8b=(_0x4f6901[_0x2fd404(0xfc)]-_0x28d75c[_0x41c111(0x18e)])/_0x28d75c[_0x2fd404(0xdb)]-0.5,_0xe3744f=(_0x4f6901[_0x2fd404(0xff)]-_0x28d75c[_0x2fd404(0xf0)])/_0x28d75c[_0x2fd404(0xf1)]-0.5;artCard[_0x2fd404(0xee)][_0x2fd404(0xdf)]=_0x41c111(0x19a)+_0xbf3e8b*0xc+_0x41c111(0x172)+_0xe3744f*-0xc+_0x2fd404(0xef);}),heroArt[_0x24eca8(0xe7)](_0x24eca8(0xd6),()=>{const _0x52c972=_0x38fa8e,_0x413117=_0x24eca8;artCard[_0x52c972(0x196)][_0x52c972(0x181)]=_0x413117(0x107);}));const workCards=document[_0x38fa8e(0x177)](_0x38fa8e(0x180));window[_0x38fa8e(0x1a8)](_0x24eca8(0xe4))[_0x24eca8(0xed)]&&workCards[_0x24eca8(0xd5)](_0x1f880f=>{const _0x35179b=_0x24eca8;_0x1f880f[_0x35179b(0xe7)](_0x35179b(0xe0),_0x498fd4=>{const _0x1bcabf=_0x33f7,_0x5b011c=_0x35179b,_0x356089=_0x1f880f[_0x5b011c(0xec)](),_0x5d3cf7=(_0x498fd4[_0x1bcabf(0x1aa)]-_0x356089[_0x1bcabf(0x18e)])/_0x356089[_0x5b011c(0xdb)]-0.5,_0xbec719=(_0x498fd4[_0x1bcabf(0x1b2)]-_0x356089[_0x1bcabf(0x198)])/_0x356089[_0x5b011c(0xf1)]-0.5;_0x1f880f[_0x5b011c(0xee)][_0x1bcabf(0x181)]=_0x5b011c(0xfb)+_0x5d3cf7*0x4+_0x5b011c(0xfa)+_0xbec719*-0x4+_0x1bcabf(0x1ae);}),_0x1f880f[_0x35179b(0xe7)]('mouseleave',()=>{const _0x52ac35=_0x33f7,_0x39c08a=_0x35179b;_0x1f880f['style'][_0x39c08a(0xdf)]=_0x52ac35(0x19d);});});function _0x33f7(_0x2ed567,_0x1519ae){_0x2ed567=_0x2ed567-0x168;const _0x433907=_0x4339();let _0x33f7fb=_0x433907[_0x2ed567];return _0x33f7fb;}const magneticButtons=document[_0x24eca8(0xf5)](_0x38fa8e(0x1a3));window[_0x24eca8(0x105)](_0x24eca8(0xe4))[_0x38fa8e(0x1b6)]&&magneticButtons[_0x24eca8(0xd5)](_0x2d2920=>{const _0xdd7668=_0x38fa8e,_0x27e743=_0x24eca8;_0x2d2920[_0xdd7668(0x1a5)](_0xdd7668(0x17f),_0x167822=>{const _0x495362=_0xdd7668,_0x3e3a46=_0x8214,_0x2e2151=_0x2d2920['getBoundingClientRect'](),_0x46f1fb=_0x167822[_0x3e3a46(0xfc)]-_0x2e2151[_0x3e3a46(0x103)]-_0x2e2151[_0x3e3a46(0xdb)]/0x2,_0x32a25b=_0x167822[_0x3e3a46(0xff)]-_0x2e2151[_0x3e3a46(0xf0)]-_0x2e2151[_0x3e3a46(0xf1)]/0x2;_0x2d2920['style'][_0x3e3a46(0xdf)]=_0x3e3a46(0xd3)+_0x46f1fb*0.12+_0x3e3a46(0xe9)+_0x32a25b*0.12+_0x495362(0x191);}),_0x2d2920[_0x27e743(0xe7)](_0xdd7668(0x199),()=>{const _0x2137d4=_0x27e743;_0x2d2920[_0x2137d4(0xee)][_0x2137d4(0xdf)]='';});}),document[_0x24eca8(0xf5)](_0x24eca8(0xfd))[_0x38fa8e(0x192)](_0x4caeea=>{const _0x1ae3fc=_0x38fa8e,_0x5ae969=_0x24eca8;_0x4caeea[_0x1ae3fc(0x1a5)](_0x5ae969(0xdd),_0x318737=>{const _0xb3d64a=_0x1ae3fc,_0x405f6e=_0x5ae969,_0x120a63=_0x4caeea[_0x405f6e(0xda)](_0x405f6e(0xf9));if(_0x120a63==='#'){_0x318737[_0xb3d64a(0x18d)](),window[_0x405f6e(0xe1)]({'top':0x0,'behavior':'smooth'});return;}const _0x1e6f8e=document[_0x405f6e(0x10d)](_0x120a63);_0x1e6f8e&&(_0x318737[_0x405f6e(0x104)](),_0x1e6f8e[_0x405f6e(0x106)]({'behavior':_0x405f6e(0x108),'block':_0x405f6e(0xe3)}));});});const skills=document[_0x24eca8(0xf5)](_0x24eca8(0xe5));function _0x8214(_0x4b6bf1,_0x3c6daf){_0x4b6bf1=_0x4b6bf1-0xd0;const _0x27b246=_0x44ec();let _0x33be00=_0x27b246[_0x4b6bf1];return _0x33be00;}skills[_0x24eca8(0xd5)]((_0xfc7589,_0x5e9fe8)=>{const _0x2441cc=_0x24eca8;_0xfc7589[_0x2441cc(0xee)][_0x2441cc(0xf7)]=_0x5e9fe8*0x23+'ms';});const year=new Date()[_0x38fa8e(0x1ac)]();document[_0x24eca8(0xf5)](_0x38fa8e(0x1a6))[_0x24eca8(0xd5)](_0x3d233a=>{const _0x3c99fc=_0x38fa8e,_0x34fc20=_0x24eca8;_0x3d233a[_0x34fc20(0x100)]=_0x3d233a[_0x34fc20(0x100)][_0x3c99fc(0x170)](_0x34fc20(0xe2),year);});
-
-  </script>
-  <script>
-/* =========================================
-   AALOK PHOTO CARD INTERACTION
-========================================= */
-
-const photoCard = document.querySelector(".photo-card");
-
-if (photoCard) {
-
-  const photo = photoCard.querySelector("img");
-
-  photoCard.addEventListener("mousemove", (e) => {
-
-    const rect = photoCard.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX =
-      ((y - centerY) / centerY) * -5;
-
-    const rotateY =
-      ((x - centerX) / centerX) * 5;
-
-    photoCard.style.transform = `
-      perspective(900px)
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
-      translateY(-10px)
-      scale(1.015)
-    `;
-
-    if (photo) {
-
-      const moveX =
-        ((x - centerX) / centerX) * 8;
-
-      const moveY =
-        ((y - centerY) / centerY) * 8;
-
-      photo.style.transform = `
-        scale(1.09)
-        translate(${moveX}px, ${moveY}px)
-      `;
-
-    }
-
-  });
-
-
-  photoCard.addEventListener("mouseleave", () => {
-
-    photoCard.style.transform = "";
-
-    if (photo) {
-      photo.style.transform = "";
-    }
-
-  });
-
-}
-</script>
-
-<script>
-/* =========================================
-   WEB3FORMS CONTACT FORM
-========================================= */
-
-const contactForm = document.getElementById("contact-form");
-const submitButton = document.getElementById("submit-button");
-const formStatus = document.getElementById("form-status");
-const formCard = document.querySelector(".contact-form-card");
-
-if (contactForm) {
-
-  contactForm.addEventListener("submit", async function (event) {
-
-    event.preventDefault();
-
-    submitButton.classList.add("loading");
-
-    submitButton.querySelector(".button-text").textContent =
-      "Sending";
-
-    formStatus.textContent = "";
-    formStatus.className = "form-status";
-
-
-    const formData = new FormData(contactForm);
-
-    try {
-
-      const response = await fetch(
-        "https://api.web3forms.com/submit",
-        {
-          method: "POST",
-          body: formData
-        }
-      );
-
-      const data = await response.json();
-
-
-      if (data.success) {
-
-        formStatus.textContent =
-          "Message sent successfully! I'll get back to you soon.";
-
-        formStatus.classList.add("success");
-
-        formCard.classList.add("sent");
-
-        submitButton.querySelector(".button-text").textContent =
-          "Message Sent ✓";
-
-        contactForm.reset();
-
-
-        setTimeout(() => {
-
-          formCard.classList.remove("sent");
-
-          submitButton.querySelector(".button-text").textContent =
-            "Send Message";
-
-        }, 5000);
-
-
-      } else {
-
-        throw new Error(
-          data.message || "Something went wrong."
-        );
-
-      }
-
-
-    } catch (error) {
-
-      console.error(error);
-
-      formStatus.textContent =
-        "Something went wrong. Please try again or email me directly.";
-
-      formStatus.classList.add("error");
-
-      submitButton.querySelector(".button-text").textContent =
-        "Try Again";
-
-    }
-
-
-    submitButton.classList.remove("loading");
-
-  });
-
-}
-</script>
-
-</body>
+    </footer>
+  </body>
 </html>
