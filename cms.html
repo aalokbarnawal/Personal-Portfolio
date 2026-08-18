@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Aalok Barnawal — Portfolio CMS</title>
+
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Favicons -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/admin.css" />
+
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <!-- Firebase Config & CMS Logic -->
+    <script src="js/firebase-config.js?v=6"></script>
+    <script src="js/admin.js?v=9" defer></script>
+  </head>
+
+  <body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <!-- =====================================================
+         AUTHENTICATION SCREEN
+    ====================================================== -->
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-card">
+        <div class="auth-logo">Aalok<span>.</span> CMS</div>
+        <p class="auth-subtitle">Sign in to manage portfolio content</p>
+
+        <form id="login-form">
+          <div class="form-group">
+            <label for="auth-email">Admin Email</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-envelope"></i>
+              <input
+                type="email"
+                id="auth-email"
+                placeholder="admin@aalokbarnawal.com"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="auth-password">Password</label>
+            <div class="input-with-icon">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="auth-password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            id="btn-login"
+          >
+            <span class="btn-text">Sign In</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         MAIN CMS DASHBOARD
+    ====================================================== -->
+    <div id="admin-dashboard" class="admin-dashboard hidden">
+      <!-- SIDEBAR -->
+      <aside class="admin-sidebar">
+        <div class="sidebar-header">
+          <a href="/" target="_blank" class="sidebar-logo">
+            Aalok<span>.</span>
+            <small>CMS</small>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button class="nav-item active" data-tab="tab-hero">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Hero Section</span>
+          </button>
+          <button class="nav-item" data-tab="tab-about">
+            <i class="fa-regular fa-user"></i>
+            <span>About & Stats</span>
+          </button>
+          <button class="nav-item" data-tab="tab-whoiam">
+            <i class="fa-solid fa-id-card"></i>
+            <span>WHO I AM Profile</span>
+          </button>
+          <button class="nav-item" data-tab="tab-services">
+            <i class="fa-solid fa-pen-ruler"></i>
+            <span>Services (What I Do)</span>
+          </button>
+          <button class="nav-item" data-tab="tab-projects">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Selected Work</span>
+          </button>
+          <button class="nav-item" data-tab="tab-skills">
+            <i class="fa-solid fa-toolbox"></i>
+            <span>Skills & Toolkits</span>
+          </button>
+          <button class="nav-item" data-tab="tab-contact">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Contact & Socials</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a href="/" target="_blank" class="btn btn-outline btn-sm btn-block">
+            <i class="fa-solid fa-up-right-from-square"></i> View Live Site
+          </a>
+          <button class="btn btn-ghost btn-sm btn-block" id="btn-logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="admin-main">
+        <!-- TOPBAR -->
+        <header class="admin-topbar">
+          <div class="topbar-left">
+            <button
+              class="mobile-sidebar-toggle"
+              id="mobile-sidebar-toggle"
+              aria-label="Toggle menu"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <h1 id="current-tab-title">Hero Section</h1>
+          </div>
+          <div class="topbar-right">
+            <button class="btn btn-primary" id="btn-save-all">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Save All Changes
+            </button>
+          </div>
+        </header>
+
+        <div class="admin-content-area">
+          <form id="portfolio-admin-form">
+            <!-- =================================================
+                 TAB 1: HERO
+            ================================================== -->
+            <section class="tab-panel active" id="tab-hero">
+              <div class="panel-header">
+                <h2>Hero Section Settings</h2>
+                <p>
+                  Manage the main headline, rotating typewriter roles,
+                  description, and hero photograph.
+                </p>
+              </div>
+
+              <div class="grid-2-col">
+                <!-- Left: Texts -->
+                <div class="card">
+                  <div class="card-title">Headline & Copy</div>
+
+                  <div class="form-group">
+                    <label for="hero-availability"
+                      >Availability Badge Text</label
+                    >
+                    <input
+                      type="text"
+                      id="hero-availability"
+                      name="hero_availabilityText"
+                    />
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="hero-headline-1">Headline Line 1</label>
+                      <input
+                        type="text"
+                        id="hero-headline-1"
+                        name="hero_headlineLine1"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="hero-headline-2">Headline Line 2</label>
+                      <input
+                        type="text"
+                        id="hero-headline-2"
+                        name="hero_headlineLine2"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="hero-headline-3"
+                      >Headline Line 3 (Gradient Accent)</label
+                    >
+                    <input
+                      type="text"
+                      id="hero-headline-3"
+                      name="hero_headlineLine3"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label>Rotating Taglines (Typewriter Effect)</label>
+                    <div id="taglines-list" class="tag-chips-editor"></div>
+                    <div class="input-inline-add">
+                      <input
+                        type="text"
+                        id="new-tagline-input"
+                        placeholder="Add a new role (e.g. Brand Strategist)..."
+                      />
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-sm"
+                        id="btn-add-tagline"
+                      >
+                        <i class="fa-solid fa-plus"></i> Add
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="hero-description-input">Hero Description</label>
+                    <textarea
+                      id="hero-description-input"
+                      name="hero_description"
+                      rows="4"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- Right: Image & Photo Card -->
+                <div class="card">
+                  <div class="card-title">Hero Image & Cloudinary Upload</div>
+
+                  <div class="hero-image-uploader">
+                    <div class="image-preview-box">
+                      <img
+                        id="hero-image-preview"
+                        src="images/hero-image.webp"
+                        alt="Hero Preview"
+                      />
+                      <div class="preview-overlay">
+                        <span>Current Image</span>
+                      </div>
+                    </div>
+
+                    <div class="upload-controls">
+                      <label
+                        for="hero-image-file"
+                        class="dropzone"
+                        id="hero-dropzone"
+                      >
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span
+                          ><strong>Click to browse</strong> or drag & drop a new
+                          hero photo</span
+                        >
+                        <small
+                          >PNG, JPG, or WEBP up to 10MB (Uploads directly to
+                          Cloudinary)</small
+                        >
+                        <input
+                          type="file"
+                          id="hero-image-file"
+                          accept="image/*"
+                          class="file-input-hidden"
+                        />
+                      </label>
+
+                      <div
+                        class="upload-progress-bar hidden"
+                        id="upload-progress-bar"
+                      >
+                        <div
+                          class="progress-fill"
+                          id="upload-progress-fill"
+                        ></div>
+                      </div>
+
+                      <div class="form-group" style="margin-top: 15px">
+                        <label for="hero-image-url"
+                          >Image URL (Cloudinary or relative path)</label
+                        >
+                        <input
+                          type="text"
+                          id="hero-image-url"
+                          name="hero_heroImage"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-row" style="margin-top: 15px">
+                    <div class="form-group">
+                      <label for="photo-label-top-input"
+                        >Photo Badge (Top)</label
+                      >
+                      <input
+                        type="text"
+                        id="photo-label-top-input"
+                        name="hero_photoLabelTop"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="photo-label-bottom-input"
+                        >Photo Badge (Bottom)</label
+                      >
+                      <input
+                        type="text"
+                        id="photo-label-bottom-input"
+                        name="hero_photoLabelBottom"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- =================================================
+                 TAB 2: ABOUT & STATS
+            ================================================== -->
+            <section class="tab-panel" id="tab-about">
+              <div class="panel-header">
+                <h2>About Me & Experience Stats</h2>
+                <p>
+                  Manage the about narrative copy and the paired experience
+                  metric cards.
+                </p>
+              </div>
+
+              <div class="grid-2-col">
+                <div class="card">
+                  <div class="card-title">Headlines & Narrative Copy</div>
+
+                  <div class="form-group">
+                    <label for="about-sec-num">Section Number</label>
+                    <input
+                      type="text"
+                      id="about-sec-num"
+                      name="about_sectionNumber"
+                    />
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="about-title-line-1"
+                        >Section Title Line 1</label
+                      >
+                      <input
+                        type="text"
+                        id="about-title-line-1"
+                        name="about_sectionTitleLine1"
+                        placeholder="e.g. Designer at heart."
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="about-title-line-2"
+                        >Section Title Line 2</label
+                      >
+                      <input
+                        type="text"
+                        id="about-title-line-2"
+                        name="about_sectionTitleLine2"
+                        placeholder="e.g. Developer by craft."
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="about-lead-text"
+                      >Lead Paragraph (Main Bio Intro)</label
+                    >
+                    <textarea
+                      id="about-lead-text"
+                      name="about_leadText"
+                      rows="3"
+                    ></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="about-p1">Body Paragraph 1</label>
+                    <textarea
+                      id="about-p1"
+                      name="about_paragraph1"
+                      rows="3"
+                    ></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="about-p2">Body Paragraph 2</label>
+                    <textarea
+                      id="about-p2"
+                      name="about_paragraph2"
+                      rows="3"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-title">
+                    Experience & Project Counter Cards
+                  </div>
+                  <p class="card-subtitle">
+                    These numbers count up automatically when the visitor
+                    scrolls into view.
+                  </p>
+
+                  <div id="stats-editor-list" class="stats-editor-list"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- =================================================
+                 TAB 3: WHO I AM PROFILE
+            ================================================== -->
+            <section class="tab-panel" id="tab-whoiam">
+              <div class="panel-header">
+                <h2>WHO I AM Creative Profile Card</h2>
+                <p>
+                  Manage the glassmorphism profile showcase on the right side of
+                  About Me.
+                </p>
+              </div>
+
+              <div class="grid-2-col">
+                <div class="card">
+                  <div class="card-title">Profile Identity & Status</div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="whoiam-badge-input">Card Category Tag</label>
+                      <input
+                        type="text"
+                        id="whoiam-badge-input"
+                        name="whoIAm_badge"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="whoiam-title-input">Card Title</label>
+                      <input
+                        type="text"
+                        id="whoiam-title-input"
+                        name="whoIAm_title"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="whoiam-status-input"
+                      >Live Status Indicator</label
+                    >
+                    <input
+                      type="text"
+                      id="whoiam-status-input"
+                      name="whoIAm_statusText"
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="whoiam-name-input">Full Name</label>
+                    <input
+                      type="text"
+                      id="whoiam-name-input"
+                      name="whoIAm_name"
+                    />
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="whoiam-primary-input">Primary Role</label>
+                      <input
+                        type="text"
+                        id="whoiam-primary-input"
+                        name="whoIAm_primaryRole"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="whoiam-sec-input">Secondary Craft</label>
+                      <input
+                        type="text"
+                        id="whoiam-sec-input"
+                        name="whoIAm_secondaryCraft"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="whoiam-focus-input">Creative Focus</label>
+                      <input
+                        type="text"
+                        id="whoiam-focus-input"
+                        name="whoIAm_creativeFocus"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="whoiam-avail-input">Availability Text</label>
+                      <input
+                        type="text"
+                        id="whoiam-avail-input"
+                        name="whoIAm_availability"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-title">Core Tool Pills</div>
+                  <p class="card-subtitle">
+                    Tools featured at the bottom of the Who I Am card.
+                  </p>
+
+                  <div id="whoiam-tools-list" class="dynamic-items-list"></div>
+
+                  <div class="input-inline-add" style="margin-top: 15px">
+                    <input
+                      type="text"
+                      id="new-whoiam-tool-name"
+                      placeholder="Tool name (e.g. Cinema 4D)..."
+                    />
+                    <input
+                      type="text"
+                      id="new-whoiam-tool-icon"
+                      placeholder="FA Icon class (e.g. fa-solid fa-cube)..."
+                      style="max-width: 190px"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm"
+                      id="btn-add-whoiam-tool"
+                    >
+                      <i class="fa-solid fa-plus"></i> Add Tool
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- =================================================
+                 TAB 4: SERVICES (WHAT I DO)
+            ================================================== -->
+            <section class="tab-panel" id="tab-services">
+              <div class="panel-header">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                  "
+                >
+                  <div>
+                    <h2>Services (WHAT I DO)</h2>
+                    <p>Manage your core design and development offerings.</p>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    id="btn-add-service-card"
+                  >
+                    <i class="fa-solid fa-plus"></i> Add New Service Card
+                  </button>
+                </div>
+              </div>
+
+              <div id="services-editor-list" class="cards-editor-grid"></div>
+            </section>
+
+            <!-- =================================================
+                 TAB: SELECTED WORK / PROJECTS
+            ================================================== -->
+            <section class="tab-panel" id="tab-projects">
+              <div class="panel-header">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                  "
+                >
+                  <div>
+                    <h2>Selected Work & Projects</h2>
+                    <p>
+                      Manage showcase projects, preview images, descriptions,
+                      tool tags, and live links.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    id="btn-add-project-card"
+                  >
+                    <i class="fa-solid fa-plus"></i> Add New Project
+                  </button>
+                </div>
+              </div>
+
+              <div id="projects-editor-list" class="cards-editor-grid"></div>
+            </section>
+
+            <!-- =================================================
+                 TAB 5: SKILLS & TOOLKITS
+            ================================================== -->
+            <section class="tab-panel" id="tab-skills">
+              <div class="panel-header">
+                <h2>Skills & Toolkits</h2>
+                <p>
+                  Manage Design skill tags, Development skill tags, and the
+                  infinite tools marquee ticker.
+                </p>
+              </div>
+
+              <div class="grid-2-col">
+                <!-- Design Skills -->
+                <div class="card">
+                  <div class="card-title">
+                    <i
+                      class="fa-solid fa-wand-magic-sparkles"
+                      style="color: var(--orange)"
+                    ></i>
+                    Design Skills Tags
+                  </div>
+                  <div id="skills-design-chips" class="tag-chips-editor"></div>
+                  <div class="input-inline-add">
+                    <input
+                      type="text"
+                      id="new-design-skill-input"
+                      placeholder="New design skill (e.g. Packaging)..."
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm"
+                      id="btn-add-design-skill"
+                    >
+                      <i class="fa-solid fa-plus"></i> Add
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Dev Skills -->
+                <div class="card">
+                  <div class="card-title">
+                    <i
+                      class="fa-solid fa-terminal"
+                      style="color: var(--purple)"
+                    ></i>
+                    Development Skills Tags
+                  </div>
+                  <div id="skills-dev-chips" class="tag-chips-editor"></div>
+                  <div class="input-inline-add">
+                    <input
+                      type="text"
+                      id="new-dev-skill-input"
+                      placeholder="New dev skill (e.g. TailwindCSS)..."
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm"
+                      id="btn-add-dev-skill"
+                    >
+                      <i class="fa-solid fa-plus"></i> Add
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tools Marquee -->
+              <div class="card" style="margin-top: 24px">
+                <div class="card-title">
+                  <i
+                    class="fa-solid fa-arrows-left-right"
+                    style="color: var(--yellow)"
+                  ></i>
+                  Tools Marquee Ticker
+                </div>
+                <p class="card-subtitle">
+                  Brands and tools that continuously scroll across the Skills
+                  section.
+                </p>
+
+                <div id="marquee-tools-list" class="marquee-editor-grid"></div>
+
+                <div class="input-inline-add" style="margin-top: 20px">
+                  <input
+                    type="text"
+                    id="new-marquee-tool-name"
+                    placeholder="Tool name (e.g. After Effects)..."
+                  />
+                  <input
+                    type="text"
+                    id="new-marquee-tool-icon"
+                    placeholder="FA Icon class (e.g. fa-solid fa-film)..."
+                    style="max-width: 250px"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-secondary btn-sm"
+                    id="btn-add-marquee-tool"
+                  >
+                    <i class="fa-solid fa-plus"></i> Add to Marquee
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- =================================================
+                 TAB 6: CONTACT & SOCIALS
+            ================================================== -->
+            <section class="tab-panel" id="tab-contact">
+              <div class="panel-header">
+                <h2>Contact & Social Media Links</h2>
+                <p>
+                  Update your public contact email, availability, and external
+                  portfolio links.
+                </p>
+              </div>
+
+              <div class="grid-2-col">
+                <div class="card">
+                  <div class="card-title">Contact Information</div>
+
+                  <div class="form-group">
+                    <label for="contact-email-input"
+                      >Public Contact Email</label
+                    >
+                    <div class="input-with-icon">
+                      <i class="fa-solid fa-envelope"></i>
+                      <input
+                        type="email"
+                        id="contact-email-input"
+                        name="contact_email"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-avail-input">Availability Text</label>
+                    <div class="input-with-icon">
+                      <i class="fa-solid fa-calendar-days"></i>
+                      <input
+                        type="text"
+                        id="contact-avail-input"
+                        name="contact_availability"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card">
+                  <div class="card-title">Social Media Links</div>
+
+                  <div class="form-group">
+                    <label for="social-instagram">Instagram URL</label>
+                    <div class="input-with-icon">
+                      <i class="fa-brands fa-instagram"></i>
+                      <input
+                        type="url"
+                        id="social-instagram"
+                        name="social_instagram"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="social-behance">Behance URL</label>
+                    <div class="input-with-icon">
+                      <i class="fa-brands fa-behance"></i>
+                      <input
+                        type="url"
+                        id="social-behance"
+                        name="social_behance"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="social-github">GitHub URL</label>
+                    <div class="input-with-icon">
+                      <i class="fa-brands fa-github"></i>
+                      <input
+                        type="url"
+                        id="social-github"
+                        name="social_github"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="social-linkedin">LinkedIn URL</label>
+                    <div class="input-with-icon">
+                      <i class="fa-brands fa-linkedin-in"></i>
+                      <input
+                        type="url"
+                        id="social-linkedin"
+                        name="social_linkedin"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <!-- =====================================================
+         ADD PROJECT MODAL
+    ====================================================== -->
+    <div id="project-modal" class="admin-modal hidden">
+      <div class="modal-backdrop" id="modal-backdrop"></div>
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="fa-solid fa-layer-group"></i>
+            <span>Add New Project</span>
+          </div>
+          <button
+            type="button"
+            class="modal-close"
+            id="btn-close-modal"
+            aria-label="Close modal"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form id="project-modal-form">
+          <div class="modal-body">
+            <!-- Image upload / preview -->
+            <div class="form-group">
+              <label>Project Preview Image</label>
+              <div class="project-img-preview-box" id="modal-img-preview">
+                <span class="empty">No image selected</span>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  gap: 10px;
+                  margin-top: 10px;
+                  align-items: center;
+                "
+              >
+                <input
+                  type="text"
+                  id="modal-proj-image"
+                  placeholder="Image URL (e.g. images/... or https://...)"
+                />
+                <label class="project-upload-trigger" for="modal-proj-upload">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Upload
+                </label>
+                <input
+                  type="file"
+                  id="modal-proj-upload"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </div>
+            </div>
+
+            <!-- Title -->
+            <div class="form-group">
+              <label for="modal-proj-title">Project Name / Title</label>
+              <input
+                type="text"
+                id="modal-proj-title"
+                placeholder="e.g. Brand Identity Concept"
+                required
+              />
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+              <label for="modal-proj-desc">Small Description</label>
+              <textarea
+                id="modal-proj-desc"
+                rows="3"
+                placeholder="A brief overview of the project concept and outcome..."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Tools / Tags -->
+            <div class="form-group">
+              <label>Tools Used / Categories</label>
+              <div id="modal-proj-tags-list" class="tag-chips-editor"></div>
+              <div class="input-inline-add" style="margin-top: 8px">
+                <input
+                  type="text"
+                  id="modal-new-tag-input"
+                  placeholder="Add tool (e.g. Figma, Illustrator, HTML)..."
+                />
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm"
+                  id="btn-modal-add-tag"
+                >
+                  <i class="fa-solid fa-plus"></i> Add
+                </button>
+              </div>
+            </div>
+
+            <!-- Link -->
+            <div class="form-group">
+              <label for="modal-proj-link">Project Link (URL)</label>
+              <input
+                type="url"
+                id="modal-proj-link"
+                placeholder="https://behance.net/... or https://github.com/..."
+              />
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="btn-cancel-modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" id="btn-submit-modal">
+              <i class="fa-solid fa-check"></i> Add Project
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         ADD SERVICE MODAL
+    ====================================================== -->
+    <div id="service-modal" class="admin-modal hidden">
+      <div class="modal-backdrop" id="service-modal-backdrop"></div>
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title">
+            <i class="fa-solid fa-pen-ruler"></i>
+            <span>Add New Service Offering</span>
+          </div>
+          <button
+            type="button"
+            class="modal-close"
+            id="btn-close-service-modal"
+            aria-label="Close modal"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form id="service-modal-form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="modal-srv-number">Card Number</label>
+                <input
+                  type="text"
+                  id="modal-srv-number"
+                  placeholder="e.g. 05"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="modal-srv-icon">FontAwesome Icon Class</label>
+                <div class="input-with-icon">
+                  <i
+                    class="fa-solid fa-wand-magic-sparkles"
+                    id="modal-srv-icon-preview"
+                  ></i>
+                  <input
+                    type="text"
+                    id="modal-srv-icon"
+                    value="fa-solid fa-wand-magic-sparkles"
+                    placeholder="e.g. fa-solid fa-pen-nib"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="modal-srv-title">Service Title</label>
+              <input
+                type="text"
+                id="modal-srv-title"
+                placeholder="e.g. Brand Strategy & Consulting"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="modal-srv-desc">Service Description</label>
+              <textarea
+                id="modal-srv-desc"
+                rows="3"
+                placeholder="Describe the scope, deliverables, and value proposition of this service..."
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="btn-cancel-service-modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="btn-submit-service-modal"
+            >
+              <i class="fa-solid fa-check"></i> Add Service
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

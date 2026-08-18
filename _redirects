@@ -1,0 +1,5 @@
+# Clean URL for CMS
+/cms    /cms.html   200
+
+# Catch all non-existent links and render custom 404.html
+/*      /404.html   404

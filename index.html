@@ -60,8 +60,13 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="css/style.css" />
 
-    <!-- Script -->
-    <script src="js/main.js" defer></script>
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Config & Main Script -->
+    <script src="js/firebase-config.js?v=6"></script>
+    <script src="js/main.js?v=6" defer></script>
   </head>
 
   <body>
@@ -132,15 +137,17 @@
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <div class="available">
+            <div class="available" id="hero-availability">
               <span class="green-dot"></span>
-              Available for freelance work
+              <span id="hero-availability-text"
+                >Available for freelance work</span
+              >
             </div>
 
-            <h1>
-              <span class="line">Crafting</span>
-              <span class="line">Visuals That</span>
-              <span class="line gradient-text">Resonate.</span>
+            <h1 id="hero-headline">
+              <span class="line" id="hero-line-1">Crafting</span>
+              <span class="line" id="hero-line-2">Visuals That</span>
+              <span class="line gradient-text" id="hero-line-3">Resonate.</span>
             </h1>
 
             <div class="rotating-tagline" id="rotating-tagline">
@@ -150,7 +157,7 @@
               <span class="tagline-cursor">|</span>
             </div>
 
-            <p class="hero-description">
+            <p class="hero-description" id="hero-description">
               I'm <strong>Aalok Barnawal</strong> — a Graphic Designer and
               Front-End Developer creating bold visual identities, engaging
               digital experiences, and modern websites.
@@ -173,12 +180,13 @@
               <img
                 src="images/hero-image.webp"
                 alt="Portrait of Aalok Barnawal"
+                id="hero-img"
                 loading="eager"
               />
               <div class="photo-overlay"></div>
               <div class="photo-label">
-                <span>Graphic</span>
-                <span>× Web</span>
+                <span id="photo-label-top">Graphic</span>
+                <span id="photo-label-bottom">× Web</span>
               </div>
             </div>
 
@@ -200,17 +208,19 @@
       ====================================================== -->
       <section id="about">
         <div class="container">
-          <div class="section-number reveal">01 — About Me</div>
+          <div class="section-number reveal" id="about-section-number">
+            01 — About Me
+          </div>
 
           <div class="about-grid">
             <!-- Left: Headline, Bio & Metric Cards -->
             <div class="about-copy reveal">
-              <h2 class="section-title">
+              <h2 class="section-title" id="about-section-title">
                 Designer at heart.<br />
                 Developer by craft.
               </h2>
 
-              <div class="about-bio-text">
+              <div class="about-bio-text" id="about-bio-text">
                 <p class="about-lead">
                   Hey, I'm <strong>Aalok Barnawal</strong> — a Graphic Designer
                   with a strong foundation in Front-End Web Development.
@@ -219,8 +229,9 @@
                 <p>
                   I love combining visual creativity with technology. From
                   creating a brand identity or social media design to building a
-                  complete responsive website, I enjoy taking an idea and turning
-                  it into something people can actually see and interact with.
+                  complete responsive website, I enjoy taking an idea and
+                  turning it into something people can actually see and interact
+                  with.
                 </p>
 
                 <p>
@@ -230,7 +241,7 @@
               </div>
 
               <!-- Paired Stats Grid -->
-              <div class="stats-row">
+              <div class="stats-row" id="about-stats-container">
                 <div class="stat-card stat" data-target="1">
                   <div class="stat-icon">
                     <i class="fa-solid fa-calendar-check"></i>
@@ -263,12 +274,14 @@
             <div class="about-highlight reveal">
               <div class="about-highlight-header">
                 <div class="highlight-title-group">
-                  <span class="highlight-badge">✦ Profile</span>
-                  <h3>Who I Am</h3>
+                  <span class="highlight-badge" id="whoiam-badge"
+                    >✦ Profile</span
+                  >
+                  <h3 id="whoiam-title">Who I Am</h3>
                 </div>
                 <div class="highlight-status">
                   <span class="pulse-dot"></span>
-                  <span>Active</span>
+                  <span id="whoiam-status-text">Active</span>
                 </div>
               </div>
 
@@ -279,7 +292,7 @@
                   </div>
                   <div class="profile-item-content">
                     <small>Name</small>
-                    <strong>Aalok Barnawal</strong>
+                    <strong id="whoiam-name">Aalok Barnawal</strong>
                   </div>
                 </div>
 
@@ -289,7 +302,11 @@
                   </div>
                   <div class="profile-item-content">
                     <small>Primary Role</small>
-                    <span class="role-pill role-designer">Graphic Designer</span>
+                    <span
+                      class="role-pill role-designer"
+                      id="whoiam-primary-role"
+                      >Graphic Designer</span
+                    >
                   </div>
                 </div>
 
@@ -299,7 +316,9 @@
                   </div>
                   <div class="profile-item-content">
                     <small>Secondary Craft</small>
-                    <span class="role-pill role-dev">Front-End Developer</span>
+                    <span class="role-pill role-dev" id="whoiam-secondary-craft"
+                      >Front-End Developer</span
+                    >
                   </div>
                 </div>
 
@@ -309,7 +328,9 @@
                   </div>
                   <div class="profile-item-content">
                     <small>Creative Focus</small>
-                    <strong>Visual Identity & Web</strong>
+                    <strong id="whoiam-creative-focus"
+                      >Visual Identity & Web</strong
+                    >
                   </div>
                 </div>
 
@@ -319,7 +340,7 @@
                   </div>
                   <div class="profile-item-content">
                     <small>Availability</small>
-                    <span class="status-badge-inline">
+                    <span class="status-badge-inline" id="whoiam-availability">
                       <span class="green-dot"></span> Freelance / Contract
                     </span>
                   </div>
@@ -331,10 +352,12 @@
                   </div>
                   <div class="profile-item-content">
                     <small>Core Tools</small>
-                    <div class="tools-mini-tags">
+                    <div class="tools-mini-tags" id="whoiam-tools">
                       <span><i class="fa-brands fa-figma"></i> Figma</span>
                       <span><i class="fa-solid fa-image"></i> Photoshop</span>
-                      <span><i class="fa-solid fa-pen-ruler"></i> Illustrator</span>
+                      <span
+                        ><i class="fa-solid fa-pen-ruler"></i> Illustrator</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -356,7 +379,7 @@
             Visuals into experiences.
           </h2>
 
-          <div class="services">
+          <div class="services" id="services-container">
             <div class="service reveal">
               <div class="service-number">01</div>
               <div class="service-icon">
@@ -423,7 +446,7 @@
                 <h4 class="skill-category-label">
                   <i class="fa-solid fa-wand-magic-sparkles"></i> Design
                 </h4>
-                <div class="skills-tags">
+                <div class="skills-tags" id="skills-design-container">
                   <span class="skill">Graphic Design</span>
                   <span class="skill">Logo Design</span>
                   <span class="skill">Brand Identity</span>
@@ -440,7 +463,7 @@
                 <h4 class="skill-category-label">
                   <i class="fa-solid fa-terminal"></i> Development
                 </h4>
-                <div class="skills-tags">
+                <div class="skills-tags" id="skills-dev-container">
                   <span class="skill">HTML</span>
                   <span class="skill">CSS</span>
                   <span class="skill">JavaScript</span>
@@ -537,7 +560,7 @@
             created.
           </h2>
 
-          <div class="work-grid">
+          <div class="work-grid" id="work-grid">
             <article class="work-card reveal">
               <div class="work-image">
                 <img
@@ -723,7 +746,10 @@
                   ></span>
                   <div>
                     <small>Email</small>
-                    <a href="mailto:aalokbarnawal44@gmail.com">
+                    <a
+                      href="mailto:aalokbarnawal44@gmail.com"
+                      id="contact-email-link"
+                    >
                       aalokbarnawal44@gmail.com
                     </a>
                   </div>
@@ -735,16 +761,19 @@
                   ></span>
                   <div>
                     <small>Availability</small>
-                    <span>Freelance / Projects</span>
+                    <span id="contact-availability-text"
+                      >Freelance / Projects</span
+                    >
                   </div>
                 </div>
 
-                <div class="contact-socials">
+                <div class="contact-socials" id="contact-socials-container">
                   <a
                     href="https://www.instagram.com/whoaalok"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-social-link"
+                    id="contact-social-instagram"
                     aria-label="Instagram"
                   >
                     <i class="fa-brands fa-instagram"></i>
@@ -754,6 +783,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-social-link"
+                    id="contact-social-behance"
                     aria-label="Behance"
                   >
                     <i class="fa-brands fa-behance"></i>
@@ -763,6 +793,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-social-link"
+                    id="contact-social-github"
                     aria-label="GitHub"
                   >
                     <i class="fa-brands fa-github"></i>
@@ -772,6 +803,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="contact-social-link"
+                    id="contact-social-linkedin"
                     aria-label="LinkedIn"
                   >
                     <i class="fa-brands fa-linkedin-in"></i>
@@ -886,11 +918,13 @@
         </div>
 
         <div class="footer-right">
-          <div class="socials">
+          <div class="socials" id="footer-socials-container">
             <a
               href="https://www.instagram.com/whoaalok"
               target="_blank"
               rel="noopener noreferrer"
+              class="footer-social-link"
+              id="footer-social-instagram"
               aria-label="Instagram"
             >
               <i class="fa-brands fa-instagram"></i>
@@ -899,6 +933,8 @@
               href="https://www.behance.net/chillpigaming"
               target="_blank"
               rel="noopener noreferrer"
+              class="footer-social-link"
+              id="footer-social-behance"
               aria-label="Behance"
             >
               <i class="fa-brands fa-behance"></i>
@@ -907,6 +943,8 @@
               href="https://github.com/aalokbarnawal"
               target="_blank"
               rel="noopener noreferrer"
+              class="footer-social-link"
+              id="footer-social-github"
               aria-label="GitHub"
             >
               <i class="fa-brands fa-github"></i>
@@ -915,6 +953,8 @@
               href="https://np.linkedin.com/in/aalok-barnawal-12b25b3a4"
               target="_blank"
               rel="noopener noreferrer"
+              class="footer-social-link"
+              id="footer-social-linkedin"
               aria-label="LinkedIn"
             >
               <i class="fa-brands fa-linkedin-in"></i>
