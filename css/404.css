@@ -1,3 +1,15 @@
+/* =========================================================
+   BARBRA FONT (Logo Only)
+========================================================= */
+
+@font-face {
+  font-family: "Barbra";
+  src: url("../fonts/Barbra-High.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --black: #080808;
   --dark: #101010;
@@ -11,12 +23,11 @@
   --pink: #ff4f9a;
   --purple: #8b5cf6;
 
-  --gradient: linear-gradient(
-    110deg,
-    #ff5c35 0%,
-    #ff4f9a 48%,
-    #8b5cf6 100%
-  );
+  --font-heading: "Sora", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-logo: "Barbra", cursive;
+
+  --gradient: linear-gradient(110deg, #ff5c35 0%, #ff4f9a 48%, #8b5cf6 100%);
 }
 
 * {
@@ -33,7 +44,7 @@ body {
   min-height: 100vh;
   background: var(--black);
   color: var(--white);
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
   overflow: hidden;
 }
@@ -107,10 +118,11 @@ nav {
 }
 
 .logo {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
+  font-family: var(--font-logo);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
 }
 
 .logo span {
@@ -189,7 +201,7 @@ nav {
 }
 
 .error-code {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-heading);
 
   font-size: clamp(7rem, 18vw, 14rem);
   line-height: 0.75;
@@ -210,7 +222,7 @@ nav {
 }
 
 .error-content h1 {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-heading);
 
   font-size: clamp(2.5rem, 5vw, 4.8rem);
   line-height: 0.95;
@@ -342,7 +354,7 @@ nav {
 
   position: absolute;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-heading);
 
   font-size: 9rem;
 
@@ -445,7 +457,7 @@ nav {
 
   color: #444;
 
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-heading);
 
   font-size: 0.7rem;
 

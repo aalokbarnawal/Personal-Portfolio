@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,11 +8,22 @@
 
     <meta
       name="description"
-      content="Aalok Barnawal — Graphic Designer and Front-End Developer creating bold visuals and modern digital experiences."
+      content="Aalok Barnawal — Graphic Designer and Front-End Developer creating bold visuals, brand identities, and modern digital experiences."
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="Aalok Barnawal — Graphic Designer & Creative Developer"
+    />
+    <meta
+      property="og:description"
+      content="Bold visuals, strong brands, modern websites. Portfolio of Aalok Barnawal."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="images/hero-image.webp" />
+
+    <!-- Favicons -->
     <link
       rel="icon"
       type="image/png"
@@ -26,12 +37,24 @@
       sizes="180x180"
       href="favicon/apple-touch-icon.png"
     />
-    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+    <meta name="apple-mobile-web-app-title" content="Aalok" />
     <link rel="manifest" href="favicon/site.webmanifest" />
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
 
     <!-- Stylesheet -->
@@ -42,41 +65,70 @@
   </head>
 
   <body>
+    <!-- Noise overlay -->
     <div class="noise"></div>
 
+    <!-- Cursor glow -->
     <div class="cursor-glow"></div>
 
-    <div class="loader">
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Preloader -->
+    <div class="loader" id="loader">
       <div class="loader-inner">
         <div class="loader-logo">Aalok<span> Portfolio</span></div>
-        <div class="loader-bar"></div>
+        <div class="loader-counter" id="loader-counter">0%</div>
+        <div class="loader-bar">
+          <div class="loader-bar-fill" id="loader-bar-fill"></div>
+        </div>
       </div>
     </div>
 
-    <nav>
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+    <nav id="navbar">
       <div class="container nav-inner">
-        <a href="#" class="logo"> Aalok<span>.</span> </a>
+        <a href="#" class="logo">Aalok<span>.</span></a>
 
-        <ul class="nav-links">
-          <li>
-            <a href="#about"> About </a>
-          </li>
-          <li>
-            <a href="#services"> Services </a>
-          </li>
-          <li>
-            <a href="#skills"> Skills </a>
-          </li>
-          <li>
-            <a href="#work"> Work </a>
-          </li>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#work" class="nav-link">Work</a></li>
         </ul>
 
-        <a href="#contact" class="nav-contact"> Let's Talk </a>
+        <a href="#contact" class="nav-contact">Let's Talk</a>
+
+        <!-- Mobile hamburger -->
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle navigation menu"
+        >
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-menu-links">
+          <li><a href="#about" class="mobile-link">About</a></li>
+          <li><a href="#services" class="mobile-link">Services</a></li>
+          <li><a href="#skills" class="mobile-link">Skills</a></li>
+          <li><a href="#work" class="mobile-link">Work</a></li>
+          <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
       </div>
     </nav>
 
     <main>
+      <!-- =====================================================
+           HERO
+      ====================================================== -->
       <section class="hero">
         <div class="container hero-grid">
           <div>
@@ -86,10 +138,17 @@
             </div>
 
             <h1>
-              <span class="line"> Design </span>
-              <span class="line"> Develop </span>
-              <span class="line gradient-text"> Create </span>
+              <span class="line">Crafting</span>
+              <span class="line">Visuals That</span>
+              <span class="line gradient-text">Resonate.</span>
             </h1>
+
+            <div class="rotating-tagline" id="rotating-tagline">
+              <span class="tagline-text" id="tagline-text"
+                >Graphic Designer</span
+              >
+              <span class="tagline-cursor">|</span>
+            </div>
 
             <p class="hero-description">
               I'm <strong>Aalok Barnawal</strong> — a Graphic Designer and
@@ -99,7 +158,8 @@
 
             <div class="hero-buttons">
               <a href="#work" class="button button-primary">
-                Explore My Work →
+                <i class="fa-solid fa-arrow-right"></i>
+                Explore My Work
               </a>
               <a href="#contact" class="button button-secondary">
                 Let's Work Together
@@ -111,8 +171,9 @@
           <div class="hero-art">
             <div class="photo-card">
               <img
-                src="hero-image.webp"
+                src="images/hero-image.webp"
                 alt="Portrait of Aalok Barnawal"
+                loading="eager"
               />
               <div class="photo-overlay"></div>
               <div class="photo-label">
@@ -126,6 +187,12 @@
             <div class="floating-square"></div>
           </div>
         </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator" id="scroll-indicator">
+          <span>Scroll</span>
+          <div class="scroll-line"></div>
+        </div>
       </section>
 
       <!-- =====================================================
@@ -135,57 +202,142 @@
         <div class="container">
           <div class="section-number reveal">01 — About Me</div>
 
-          <h2 class="section-title reveal">
-            Designer at heart.<br />
-            Developer by craft.
-          </h2>
-
           <div class="about-grid">
+            <!-- Left: Headline, Bio & Metric Cards -->
             <div class="about-copy reveal">
-              <p>
-                Hey, I'm <strong>Aalok Barnawal</strong>. I'm a Graphic Designer
-                with a strong interest in Front-End Web Development.
-              </p>
+              <h2 class="section-title">
+                Designer at heart.<br />
+                Developer by craft.
+              </h2>
 
-              <p>
-                I love combining visual creativity with technology. From
-                creating a brand identity or social media design to building a
-                complete responsive website, I enjoy taking an idea and turning
-                it into something people can actually see and interact with.
-              </p>
+              <div class="about-bio-text">
+                <p class="about-lead">
+                  Hey, I'm <strong>Aalok Barnawal</strong> — a Graphic Designer
+                  with a strong foundation in Front-End Web Development.
+                </p>
 
-              <p>
-                My goal is simple: create work that looks good, feels
-                intentional, and actually communicates something.
-              </p>
+                <p>
+                  I love combining visual creativity with technology. From
+                  creating a brand identity or social media design to building a
+                  complete responsive website, I enjoy taking an idea and turning
+                  it into something people can actually see and interact with.
+                </p>
+
+                <p>
+                  My goal is simple: create work that looks good, feels
+                  intentional, and communicates with lasting impact.
+                </p>
+              </div>
+
+              <!-- Paired Stats Grid -->
+              <div class="stats-row">
+                <div class="stat-card stat" data-target="1">
+                  <div class="stat-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                  </div>
+                  <div class="stat-data">
+                    <div class="stat-number-wrap">
+                      <span class="stat-number" id="stat-years">0</span
+                      ><span class="stat-suffix">+</span>
+                    </div>
+                    <span class="stat-label">Years Experience</span>
+                  </div>
+                </div>
+
+                <div class="stat-card stat" data-target="20">
+                  <div class="stat-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                  </div>
+                  <div class="stat-data">
+                    <div class="stat-number-wrap">
+                      <span class="stat-number" id="stat-projects">0</span
+                      ><span class="stat-suffix">+</span>
+                    </div>
+                    <span class="stat-label">Projects Completed</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            <!-- Right: Creative Profile Card -->
             <div class="about-highlight reveal">
-              <h3>Who I Am</h3>
-
-              <div class="info-row">
-                <span>Name</span>
-                <span>Aalok Barnawal</span>
+              <div class="about-highlight-header">
+                <div class="highlight-title-group">
+                  <span class="highlight-badge">✦ Profile</span>
+                  <h3>Who I Am</h3>
+                </div>
+                <div class="highlight-status">
+                  <span class="pulse-dot"></span>
+                  <span>Active</span>
+                </div>
               </div>
 
-              <div class="info-row">
-                <span>Role</span>
-                <span>Graphic Designer</span>
-              </div>
+              <div class="profile-cards-grid">
+                <div class="profile-item">
+                  <div class="profile-item-icon">
+                    <i class="fa-regular fa-user"></i>
+                  </div>
+                  <div class="profile-item-content">
+                    <small>Name</small>
+                    <strong>Aalok Barnawal</strong>
+                  </div>
+                </div>
 
-              <div class="info-row">
-                <span>Also</span>
-                <span>Front-End Developer</span>
-              </div>
+                <div class="profile-item">
+                  <div class="profile-item-icon">
+                    <i class="fa-solid fa-pen-nib"></i>
+                  </div>
+                  <div class="profile-item-content">
+                    <small>Primary Role</small>
+                    <span class="role-pill role-designer">Graphic Designer</span>
+                  </div>
+                </div>
 
-              <div class="info-row">
-                <span>Creative Focus</span>
-                <span>Visual Design & Web</span>
-              </div>
+                <div class="profile-item">
+                  <div class="profile-item-icon">
+                    <i class="fa-solid fa-code"></i>
+                  </div>
+                  <div class="profile-item-content">
+                    <small>Secondary Craft</small>
+                    <span class="role-pill role-dev">Front-End Developer</span>
+                  </div>
+                </div>
 
-              <div class="info-row">
-                <span>Availability</span>
-                <span>Freelance / Projects</span>
+                <div class="profile-item">
+                  <div class="profile-item-icon">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                  </div>
+                  <div class="profile-item-content">
+                    <small>Creative Focus</small>
+                    <strong>Visual Identity & Web</strong>
+                  </div>
+                </div>
+
+                <div class="profile-item">
+                  <div class="profile-item-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                  </div>
+                  <div class="profile-item-content">
+                    <small>Availability</small>
+                    <span class="status-badge-inline">
+                      <span class="green-dot"></span> Freelance / Contract
+                    </span>
+                  </div>
+                </div>
+
+                <div class="profile-item profile-item-full">
+                  <div class="profile-item-icon">
+                    <i class="fa-solid fa-toolbox"></i>
+                  </div>
+                  <div class="profile-item-content">
+                    <small>Core Tools</small>
+                    <div class="tools-mini-tags">
+                      <span><i class="fa-brands fa-figma"></i> Figma</span>
+                      <span><i class="fa-solid fa-image"></i> Photoshop</span>
+                      <span><i class="fa-solid fa-pen-ruler"></i> Illustrator</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -207,31 +359,37 @@
           <div class="services">
             <div class="service reveal">
               <div class="service-number">01</div>
-              <div class="service-icon">✦</div>
+              <div class="service-icon">
+                <i class="fa-solid fa-pen-nib"></i>
+              </div>
               <h3>Graphic Design</h3>
               <p>
                 Creative visual solutions designed to make brands, content, and
-                ideas stand out.
+                ideas stand out with impact and clarity.
               </p>
             </div>
 
             <div class="service reveal" style="transition-delay: 0.1s">
               <div class="service-number">02</div>
-              <div class="service-icon">◈</div>
+              <div class="service-icon">
+                <i class="fa-solid fa-palette"></i>
+              </div>
               <h3>Brand & Visual Identity</h3>
               <p>
-                Logos, typography, color systems and visual identities that
-                give brands a recognizable personality.
+                Logos, typography, color systems and visual identities that give
+                brands a recognizable personality.
               </p>
             </div>
 
             <div class="service reveal" style="transition-delay: 0.2s">
               <div class="service-number">03</div>
-              <div class="service-icon">&lt;/&gt;</div>
+              <div class="service-icon">
+                <i class="fa-solid fa-code"></i>
+              </div>
               <h3>Front-End Development</h3>
               <p>
                 Responsive, modern websites built with clean front-end code and
-                thoughtful UI.
+                thoughtful UI attention to detail.
               </p>
             </div>
           </div>
@@ -254,27 +412,114 @@
 
               <p>
                 A combination of design thinking, visual communication, and
-                front-end development helps me approach projects from both
-                sides.
+                front-end development helps me approach projects from both sides
+                — creative and technical.
               </p>
             </div>
 
-            <div class="skills reveal">
-              <span class="skill">Graphic Design</span>
-              <span class="skill">Logo Design</span>
-              <span class="skill">Brand Identity</span>
-              <span class="skill">Poster Design</span>
-              <span class="skill">Social Media Design</span>
-              <span class="skill">Typography</span>
-              <span class="skill">Color Theory</span>
-              <span class="skill">UI Design</span>
-              <span class="skill">HTML</span>
-              <span class="skill">CSS</span>
-              <span class="skill">JavaScript</span>
-              <span class="skill">Responsive Design</span>
-              <span class="skill">Landing Pages</span>
-              <span class="skill">Web UI</span>
-              <span class="skill">Git</span>
+            <div class="skills-container reveal">
+              <!-- Design Skills -->
+              <div class="skill-category">
+                <h4 class="skill-category-label">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> Design
+                </h4>
+                <div class="skills-tags">
+                  <span class="skill">Graphic Design</span>
+                  <span class="skill">Logo Design</span>
+                  <span class="skill">Brand Identity</span>
+                  <span class="skill">Poster Design</span>
+                  <span class="skill">Social Media Design</span>
+                  <span class="skill">Typography</span>
+                  <span class="skill">Color Theory</span>
+                  <span class="skill">UI Design</span>
+                </div>
+              </div>
+
+              <!-- Technical Skills -->
+              <div class="skill-category">
+                <h4 class="skill-category-label">
+                  <i class="fa-solid fa-terminal"></i> Development
+                </h4>
+                <div class="skills-tags">
+                  <span class="skill">HTML</span>
+                  <span class="skill">CSS</span>
+                  <span class="skill">JavaScript</span>
+                  <span class="skill">Responsive Design</span>
+                  <span class="skill">Landing Pages</span>
+                  <span class="skill">Web UI</span>
+                  <span class="skill">Git</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools Marquee -->
+          <div class="tools-marquee reveal">
+            <div class="marquee-track" id="marquee-track">
+              <div class="marquee-content">
+                <span class="tool-item"
+                  ><i class="fa-brands fa-figma"></i> Figma</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-solid fa-image"></i> Photoshop</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-solid fa-pen-ruler"></i> Illustrator</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-html5"></i> HTML5</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-css3-alt"></i> CSS3</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-js"></i> JavaScript</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-git-alt"></i> Git</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-github"></i> GitHub</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-solid fa-paintbrush"></i> Canva</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-chrome"></i> Chrome DevTools</span
+                >
+              </div>
+              <div class="marquee-content" aria-hidden="true">
+                <span class="tool-item"
+                  ><i class="fa-brands fa-figma"></i> Figma</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-solid fa-image"></i> Photoshop</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-solid fa-pen-ruler"></i> Illustrator</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-html5"></i> HTML5</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-css3-alt"></i> CSS3</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-js"></i> JavaScript</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-git-alt"></i> Git</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-github"></i> GitHub</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-solid fa-paintbrush"></i> Canva</span
+                >
+                <span class="tool-item"
+                  ><i class="fa-brands fa-chrome"></i> Chrome DevTools</span
+                >
+              </div>
             </div>
           </div>
         </div>
@@ -294,61 +539,109 @@
 
           <div class="work-grid">
             <article class="work-card reveal">
-              <div class="work-image one">
-                <div class="fake-poster">BRAND</div>
+              <div class="work-image">
+                <img
+                  src="images/work-brand-identity.png"
+                  alt="Brand Identity Design Project"
+                  loading="lazy"
+                />
+                <div class="work-overlay">
+                  <span class="work-overlay-text"
+                    >View Project
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i
+                  ></span>
+                </div>
               </div>
-
               <div class="work-content">
-                <div class="work-category">Graphic Design</div>
+                <div class="work-tags">
+                  <span class="work-tag">Branding</span>
+                  <span class="work-tag">Logo</span>
+                </div>
                 <h3>Brand Identity</h3>
                 <p>
-                  A visual identity concept focused on bold typography and
-                  memorable visuals.
+                  A visual identity concept focused on bold typography,
+                  stationery, and memorable brand presence.
                 </p>
               </div>
             </article>
 
             <article class="work-card reveal" style="transition-delay: 0.1s">
-              <div class="work-image two">
-                <div class="fake-poster">WEB</div>
+              <div class="work-image">
+                <img
+                  src="images/work-web-design.png"
+                  alt="Creative Website Design Project"
+                  loading="lazy"
+                />
+                <div class="work-overlay">
+                  <span class="work-overlay-text"
+                    >View Project
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i
+                  ></span>
+                </div>
               </div>
-
               <div class="work-content">
-                <div class="work-category">Front-End Development</div>
+                <div class="work-tags">
+                  <span class="work-tag">Web Design</span>
+                  <span class="work-tag">Front-End</span>
+                </div>
                 <h3>Creative Landing Page</h3>
                 <p>
-                  A modern responsive landing page combining strong visuals
-                  with interactive UI.
+                  A modern responsive landing page combining strong visuals with
+                  interactive UI and smooth animations.
                 </p>
               </div>
             </article>
 
             <article class="work-card reveal" style="transition-delay: 0.15s">
-              <div class="work-image three">
-                <div class="fake-poster">UI</div>
+              <div class="work-image">
+                <img
+                  src="images/work-poster-design.png"
+                  alt="Creative Poster Design Project"
+                  loading="lazy"
+                />
+                <div class="work-overlay">
+                  <span class="work-overlay-text"
+                    >View Project
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i
+                  ></span>
+                </div>
               </div>
-
               <div class="work-content">
-                <div class="work-category">UI Design</div>
-                <h3>Digital Interface</h3>
+                <div class="work-tags">
+                  <span class="work-tag">Poster</span>
+                  <span class="work-tag">Visual Art</span>
+                </div>
+                <h3>Creative Campaign</h3>
                 <p>
-                  A clean interface concept designed around usability,
-                  hierarchy, and visual balance.
+                  A visual campaign exploring color, composition, typography,
+                  and bold storytelling.
                 </p>
               </div>
             </article>
 
             <article class="work-card reveal" style="transition-delay: 0.2s">
-              <div class="work-image four">
-                <div class="fake-poster">ART</div>
+              <div class="work-image">
+                <img
+                  src="images/work-social-media.png"
+                  alt="Social Media Design Project"
+                  loading="lazy"
+                />
+                <div class="work-overlay">
+                  <span class="work-overlay-text"
+                    >View Project
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i
+                  ></span>
+                </div>
               </div>
-
               <div class="work-content">
-                <div class="work-category">Visual Design</div>
-                <h3>Creative Campaign</h3>
+                <div class="work-tags">
+                  <span class="work-tag">Social Media</span>
+                  <span class="work-tag">Marketing</span>
+                </div>
+                <h3>Social Media Design</h3>
                 <p>
-                  A visual campaign exploring color, composition, typography,
-                  and storytelling.
+                  Curated social media graphics designed for engagement, brand
+                  consistency, and visual impact.
                 </p>
               </div>
             </article>
@@ -359,7 +652,7 @@
       <!-- =====================================================
            PROCESS
       ====================================================== -->
-      <section>
+      <section id="process">
         <div class="container">
           <div class="section-number reveal">05 — My Process</div>
 
@@ -370,29 +663,30 @@
 
           <div class="process">
             <div class="process-item reveal">
-              <span>01</span>
+              <div class="process-step-number">01</div>
               <h3>Discover</h3>
               <p>Understand the idea, audience, goals, and direction.</p>
+              <div class="process-connector"></div>
             </div>
 
             <div class="process-item reveal">
-              <span>02</span>
+              <div class="process-step-number">02</div>
               <h3>Explore</h3>
-              <p>
-                Research, experiment, sketch, and develop visual concepts.
-              </p>
+              <p>Research, experiment, sketch, and develop visual concepts.</p>
+              <div class="process-connector"></div>
             </div>
 
             <div class="process-item reveal">
-              <span>03</span>
+              <div class="process-step-number">03</div>
               <h3>Create</h3>
               <p>
                 Turn the strongest concept into a polished design or website.
               </p>
+              <div class="process-connector"></div>
             </div>
 
             <div class="process-item reveal">
-              <span>04</span>
+              <div class="process-step-number">04</div>
               <h3>Refine</h3>
               <p>
                 Polish the details and make sure everything feels intentional.
@@ -424,7 +718,9 @@
 
               <div class="contact-details">
                 <div class="contact-detail">
-                  <span class="detail-icon">✉</span>
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-envelope"></i
+                  ></span>
                   <div>
                     <small>Email</small>
                     <a href="mailto:aalokbarnawal44@gmail.com">
@@ -434,11 +730,52 @@
                 </div>
 
                 <div class="contact-detail">
-                  <span class="detail-icon">✦</span>
+                  <span class="detail-icon"
+                    ><i class="fa-solid fa-star"></i
+                  ></span>
                   <div>
                     <small>Availability</small>
                     <span>Freelance / Projects</span>
                   </div>
+                </div>
+
+                <div class="contact-socials">
+                  <a
+                    href="https://www.instagram.com/whoaalok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-social-link"
+                    aria-label="Instagram"
+                  >
+                    <i class="fa-brands fa-instagram"></i>
+                  </a>
+                  <a
+                    href="https://www.behance.net/chillpigaming"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-social-link"
+                    aria-label="Behance"
+                  >
+                    <i class="fa-brands fa-behance"></i>
+                  </a>
+                  <a
+                    href="https://github.com/aalokbarnawal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-social-link"
+                    aria-label="GitHub"
+                  >
+                    <i class="fa-brands fa-github"></i>
+                  </a>
+                  <a
+                    href="https://np.linkedin.com/in/aalok-barnawal-12b25b3a4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="contact-social-link"
+                    aria-label="LinkedIn"
+                  >
+                    <i class="fa-brands fa-linkedin-in"></i>
+                  </a>
                 </div>
               </div>
             </div>
@@ -462,11 +799,7 @@
                   name="subject"
                   value="New Portfolio Contact — Aalok Barnawal"
                 />
-                <input
-                  type="hidden"
-                  name="from_name"
-                  value="Aalok Portfolio"
-                />
+                <input type="hidden" name="from_name" value="Aalok Portfolio" />
                 <input
                   type="checkbox"
                   name="botcheck"
@@ -501,9 +834,7 @@
                 <div class="form-group">
                   <label for="project">What do you need?</label>
                   <select id="project" name="project_type" required>
-                    <option value="" disabled selected>
-                      Select a service
-                    </option>
+                    <option value="" disabled selected>Select a service</option>
                     <option value="Graphic Design">Graphic Design</option>
                     <option value="Brand Identity">Brand Identity</option>
                     <option value="UI Design">UI Design</option>
@@ -523,11 +854,7 @@
                   ></textarea>
                 </div>
 
-                <button
-                  type="submit"
-                  class="form-submit"
-                  id="submit-button"
-                >
+                <button type="submit" class="form-submit" id="submit-button">
                   <span class="button-text">Send Message</span>
                   <span class="button-arrow">→</span>
                 </button>
@@ -549,41 +876,57 @@
     ====================================================== -->
     <footer>
       <div class="container footer-inner">
-        <div>
-          © 2026 Aalok Barnawal. Designed & built with creativity.
+        <div class="footer-left">
+          <span class="footer-logo">Aalok<span>.</span></span>
+          <span class="footer-copy">© 2026 Aalok Barnawal</span>
         </div>
 
-        <div class="socials">
-          <a
-            href="https://www.instagram.com/whoaalok"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Instagram
-          </a>
-          <a
-            href="https://www.behance.net/chillpigaming"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Behance
-          </a>
-          <a
-            href="https://github.com/aalokbarnawal"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://np.linkedin.com/in/aalok-barnawal-12b25b3a4"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
+        <div class="footer-center">
+          Designed & developed with <span class="footer-heart">♡</span> by Aalok
+        </div>
+
+        <div class="footer-right">
+          <div class="socials">
+            <a
+              href="https://www.instagram.com/whoaalok"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.behance.net/chillpigaming"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Behance"
+            >
+              <i class="fa-brands fa-behance"></i>
+            </a>
+            <a
+              href="https://github.com/aalokbarnawal"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a
+              href="https://np.linkedin.com/in/aalok-barnawal-12b25b3a4"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
   </body>
 </html>
