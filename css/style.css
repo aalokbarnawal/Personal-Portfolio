@@ -527,9 +527,9 @@ nav.scrolled {
 .hero h1 {
   font-family: var(--font-heading);
   font-size: clamp(3.6rem, 7.8vw, 7.4rem);
-  line-height: 0.9;
-  letter-spacing: -0.075em;
-  margin-bottom: 20px;
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  margin-bottom: 24px;
 }
 
 .hero h1 .line {
@@ -537,6 +537,11 @@ nav.scrolled {
   opacity: 0;
   transform: translateY(50px);
   animation: heroLine 0.9s var(--ease) forwards;
+  margin-bottom: 0.04em;
+}
+
+.hero h1 .line:last-child {
+  margin-bottom: 0;
 }
 
 .hero h1 .line:nth-child(1) {
@@ -1161,7 +1166,9 @@ section {
   font-size: 0.95rem;
   color: var(--orange);
   flex-shrink: 0;
-  transition: transform 0.3s var(--ease), background 0.3s ease;
+  transition:
+    transform 0.3s var(--ease),
+    background 0.3s ease;
 }
 
 .profile-item:hover .profile-item-icon {
