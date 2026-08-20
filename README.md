@@ -34,7 +34,6 @@ A personal portfolio website designed for **Aalok Barnawal** — Graphic Designe
 ├── index.html                # Main portfolio single-page application (Firestore-hydrated)
 ├── cms.html                  # CMS Dashboard for content management & image uploads
 ├── 404.html                  # Custom 404 error page
-├── _redirects                # Netlify / Cloudflare routing (/cms rewrite & 404 fallback)
 └── README.md                 # Project documentation
 ```
 
